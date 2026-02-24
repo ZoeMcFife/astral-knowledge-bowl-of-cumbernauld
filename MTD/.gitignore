@@ -1,0 +1,34 @@
+
+# === Obsidian system files ===
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/obsidian-git/data.json
+.obsidian/plugins/obsidian-git/logs/
+.obsidian/plugins/obsidian-git/.*
+.obsidian/plugins/obsidian-sync/
+.obsidian/plugins/obsidian-canvas/
+.obsidian/plugins/obsidian-excalidraw/data.json
+.obsidian/plugins/obsidian-excalidraw/library/
+.obsidian/app.json
+.obsidian/cache/
+.obsidian/backup/
+.obsidian/snippets/.DS_Store
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Backup and temp ===
+*.tmp
+*.bak
+*.log
+
+# === Node/npm related (if using community plugins locally) ===
+node_modules/
+package-lock.json
+yarn.lock
+
+# === Optional: Personal config or API keys ===
+.env
+config.local.json

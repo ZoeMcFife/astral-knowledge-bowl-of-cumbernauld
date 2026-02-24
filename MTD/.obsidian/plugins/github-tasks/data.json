@@ -1,0 +1,13 @@
+{
+  "githubToken": "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",
+  "githubTasksNote": "GitHub Tasks",
+  "taskTag": "#github",
+  "taskFormat": "tasks",
+  "autoRefreshInterval": 0,
+  "importLabels": true,
+  "repositoryDescription": false,
+  "repositoryTags": false,
+  "autoClearCompleted": true,
+  "showCreatedAt": true,
+  "showCompletedAt": true
+}

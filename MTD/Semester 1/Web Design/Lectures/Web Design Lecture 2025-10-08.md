@@ -1,0 +1,5 @@
+#web_design #zoe_was_missing_here #figma 
+
+Website Design He didn't really talked much about sth new. Half of his lecture was already mentioned in aestethiks and fotographic and 2D Arts. The rest and important thing from the lecture was that we mainly use Figma (create an account and we use the free version [important create it with your fh-email]) and we should prepare ourself to make a portfolio. (will be the next homework). In the excercise, he talked about the mainly and often used structure (picture incomming) how a portfolio is designed. The rest of the excercise was about, how figma works and getting familiar with the UI. His tip, how to construkt something is less is more. He compared it, with a 2 min pitch. Like if you have only 2 min to explain, what you do and why someone would be interested etc. The only important thing he mentioned in the excercise was, that we don't export the file from figma, we save the hole figma file as .fig and zip it. But he will remember us, when we get our first homework.
+
+![[Pasted image 20251022232812.png]]![[Web Design - VL01 - Intro.pdf]]

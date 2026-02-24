@@ -1,0 +1,8 @@
+{
+  "accentColor": "#db2727",
+  "interfaceFontFamily": "Inter",
+  "monospaceFontFamily": "JetBrains Mono",
+  "enabledCssSnippets": [
+    "colored_heading"
+  ]
+}

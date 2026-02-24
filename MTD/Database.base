@@ -1,0 +1,28 @@
+formulas:
+  Untitled: ""
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - file.ctime
+      - file.mtime
+      - file.size
+      - file.tags
+      - file.embeds
+      - file.ext
+    sort:
+      - property: file.tags
+        direction: DESC
+      - property: file.name
+        direction: DESC
+      - property: file.ctime
+        direction: ASC
+      - property: file.size
+        direction: ASC
+      - property: file.embeds
+        direction: ASC
+    columnSize:
+      file.ctime: 152
+      file.mtime: 137
+      file.tags: 862

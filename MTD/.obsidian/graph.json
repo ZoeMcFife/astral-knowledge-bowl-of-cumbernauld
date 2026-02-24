@@ -1,0 +1,100 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#2d_design  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag:#3d_design  ",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    },
+    {
+      "query": "tag:#av_technology  ",
+      "color": {
+        "a": 1,
+        "rgb": 8120
+      }
+    },
+    {
+      "query": "tag:#game_engine_concepts  ",
+      "color": {
+        "a": 1,
+        "rgb": 16304127
+      }
+    },
+    {
+      "query": "tag:#visual_aesthetics  ",
+      "color": {
+        "a": 1,
+        "rgb": 5431473
+      }
+    },
+    {
+      "query": "tag:#web_design  ",
+      "color": {
+        "a": 1,
+        "rgb": 5419488
+      }
+    },
+    {
+      "query": "tag:#modern_code  ",
+      "color": {
+        "a": 1,
+        "rgb": 5395168
+      }
+    },
+    {
+      "query": "tag:#introduction_to_games  ",
+      "color": {
+        "a": 1,
+        "rgb": 11621088
+      }
+    },
+    {
+      "query": "tag:#photography  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701233
+      }
+    },
+    {
+      "query": "tag:#web_fundementals  ",
+      "color": {
+        "a": 1,
+        "rgb": 16687067
+      }
+    },
+    {
+      "query": "tag:#motion_design",
+      "color": {
+        "a": 1,
+        "rgb": 61183
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": -0.5,
+  "nodeSizeMultiplier": 1.36829521829522,
+  "lineSizeMultiplier": 2.14251559251559,
+  "collapse-forces": false,
+  "centerStrength": 0.238045738045738,
+  "repelStrength": 20,
+  "linkStrength": 1,
+  "linkDistance": 175,
+  "scale": 0.06219998870888632,
+  "close": true
+}

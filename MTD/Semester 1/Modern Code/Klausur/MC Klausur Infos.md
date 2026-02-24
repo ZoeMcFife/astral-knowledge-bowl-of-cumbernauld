@@ -1,0 +1,4 @@
+#modern_code 
+
+
+Liebe Studierende, hier noch die Informationen zur Klausur:<br><br>**Prüfungsformat:** Open-Book-Klausur  <br>**Bearbeitungszeit:** 60 Minuten<br><br>Es gibt **maximal 1–2 Coding-Aufgaben**. Der **Schwerpunkt liegt auf der Erklärung und dem fachlichen Verständnis**, nicht auf der Komplexität oder Länge des Codes. Code kann auch als Pseudocode formuliert werden.<br><br>**Open Book** bedeutet:  <br>Alle **nicht-digitalen Hilfsmittel** sind erlaubt (z. B. eigene Notizen, Bücher, Ausdrucke).  <br>**Digitale Geräte** wie Laptop, Tablet oder Smartphone sind **nicht erlaubt**.<br><br>Die Bearbeitung ist **wahlweise auf Deutsch oder Englisch** möglich.<br><br>Bitte **Stift(e)** mitnehmen, Leere Papierseiten werden NICHT benötigt.<br><br>**Inhalt**: Das ganze Semester (ausgenommen Introduction, AI Assisted Coding, Code Quality with AI)|
