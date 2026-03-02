@@ -97,6 +97,48 @@
         "a": 1,
         "rgb": 5431378
       }
+    },
+    {
+      "query": "tag:#algorithmic_thinking",
+      "color": {
+        "a": 1,
+        "rgb": 5431473
+      }
+    },
+    {
+      "query": "tag:#game_production",
+      "color": {
+        "a": 1,
+        "rgb": 5419488
+      }
+    },
+    {
+      "query": "tag:#interface_design",
+      "color": {
+        "a": 1,
+        "rgb": 5395168
+      }
+    },
+    {
+      "query": "tag:#media_intelligence",
+      "color": {
+        "a": 1,
+        "rgb": 5431413
+      }
+    },
+    {
+      "query": "tag:#live_production",
+      "color": {
+        "a": 1,
+        "rgb": 11688275
+      }
+    },
+    {
+      "query": "tag:#relational_databases",
+      "color": {
+        "a": 1,
+        "rgb": 5395026
+      }
     }
   ],
   "collapse-display": true,
