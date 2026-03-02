@@ -83,6 +83,20 @@
         "a": 1,
         "rgb": 61183
       }
+    },
+    {
+      "query": "tag:#live_production",
+      "color": {
+        "a": 1,
+        "rgb": 11657298
+      }
+    },
+    {
+      "query": "tag:#media_intelligence",
+      "color": {
+        "a": 1,
+        "rgb": 5431378
+      }
     }
   ],
   "collapse-display": true,
@@ -95,6 +109,6 @@
   "repelStrength": 20,
   "linkStrength": 1,
   "linkDistance": 175,
-  "scale": 0.06219998870888632,
-  "close": true
+  "scale": 0.04436572572144152,
+  "close": false
 }
