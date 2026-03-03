@@ -15,3 +15,4 @@ comparing ai to industrial revolution
 
 
 
+[AI generated Course lol](https://ai-kompass.org/wissen/kurse/ki-grundlagen)
