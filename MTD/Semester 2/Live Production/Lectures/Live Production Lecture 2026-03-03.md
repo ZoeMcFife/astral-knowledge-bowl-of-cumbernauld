@@ -3,6 +3,12 @@
 ugh this already sounds super lame….
 
 ![[MTD.ba_LPR2_le00.pdf]]
+
+woah there’s #spider just hangin there 
+
+oh my god its going down NO WAY
+
+# Requirements
 #### LIVE PRODUCTION
 
 ###### TEAM
@@ -34,3 +40,8 @@ Production has to be prepared including:
 - dedicated graphic style for intro (anim. or video) / inserts / overlays / end-credits
 - suitable stage / set design including lights
 - remote content (prerecorded/produced material that is played back during live show)
+
+
+THE TEAM is pretty alright i guess
+
+![[Pasted image 20260303123517.png]]
