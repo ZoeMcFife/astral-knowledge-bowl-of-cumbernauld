@@ -1,0 +1,90 @@
+{
+  "cascadeColors": true,
+  "colorBackground": false,
+  "palette": [
+    {
+      "id": "7rm7fJY0QpwXkhmbcIy4G",
+      "name": "mmm boobs",
+      "value": "#b00b69"
+    },
+    {
+      "id": "1dGvQBB8vqL3BYtzDoefG",
+      "name": "Blue",
+      "value": "#0735ed"
+    },
+    {
+      "id": "b81MTwCsUEQHlPGjK_G5R",
+      "name": "Tangerine Blue",
+      "value": "#45aaf7"
+    },
+    {
+      "id": "pj1Epf9jjC8T1OZvFyMK-",
+      "name": "Lime",
+      "value": "#b2ff24"
+    },
+    {
+      "id": "fOoz2lJMIFGBqqYNvbzEt",
+      "name": "Yellow",
+      "value": "#feeb20"
+    },
+    {
+      "id": "DGhczhnUCeKkMl2LvDNjQ",
+      "name": "Red",
+      "value": "#e02d00"
+    },
+    {
+      "id": "kqUViXVyXk_Wh4-fcqSTx",
+      "name": "Pink",
+      "value": "#ff42dc"
+    },
+    {
+      "id": "2YDCV-192jCjT2k9K42mG",
+      "name": "Burple",
+      "value": "#c13efe"
+    },
+    {
+      "id": "l1WeBpfFXmYzLCRMDLw_w",
+      "name": "Orangish",
+      "value": "#ffb957"
+    },
+    {
+      "id": "QZbzAomfN2wXNJI2pIAih",
+      "name": "Orange",
+      "value": "#ffa200"
+    }
+  ],
+  "fileColors": [
+    {
+      "path": "Semester 2/Algorithmic Thinking",
+      "color": "fOoz2lJMIFGBqqYNvbzEt"
+    },
+    {
+      "path": "Semester 2/Audio Technology",
+      "color": "DGhczhnUCeKkMl2LvDNjQ"
+    },
+    {
+      "path": "Semester 2/Game Production",
+      "color": "kqUViXVyXk_Wh4-fcqSTx"
+    },
+    {
+      "path": "Semester 2/Interface Design",
+      "color": "7rm7fJY0QpwXkhmbcIy4G"
+    },
+    {
+      "path": "Semester 2/Live Production",
+      "color": "b81MTwCsUEQHlPGjK_G5R"
+    },
+    {
+      "path": "Semester 2/Media Intelligence",
+      "color": "QZbzAomfN2wXNJI2pIAih"
+    },
+    {
+      "path": "Semester 2/Relational Databases",
+      "color": "1dGvQBB8vqL3BYtzDoefG"
+    },
+    {
+      "path": "Semester 2/Video Technology",
+      "color": "pj1Epf9jjC8T1OZvFyMK-"
+    }
+  ]
+}
