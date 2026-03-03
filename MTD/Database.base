@@ -16,8 +16,6 @@ views:
         direction: DESC
       - property: file.name
         direction: ASC
-      - property: file.size
-        direction: DESC
       - property: file.tags
         direction: DESC
       - property: file.embeds
