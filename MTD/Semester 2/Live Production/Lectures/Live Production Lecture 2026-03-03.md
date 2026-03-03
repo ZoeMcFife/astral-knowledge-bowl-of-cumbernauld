@@ -6,7 +6,7 @@ ugh this already sounds super lame….
 
 woah there’s a #spider just hangin there 
 
-oh my god its going down NO WAY
+<mark class="hltr-red">oh my god its going down NO WAY</mark>
 
 ![[MTD.ba_LPR2_le01.pdf]]
 # Requirements

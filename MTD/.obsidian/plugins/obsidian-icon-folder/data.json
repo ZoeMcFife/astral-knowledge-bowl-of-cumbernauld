@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "LiDatabase",
-      "LiChartScatter",
-      "LiCamera",
-      "LiMousePointer2",
-      "LiGamepad2"
+      "LiBadgeEuro",
+      "LiAlertCircle",
+      "LiWebhook",
+      "LiScreenShare",
+      "LiCamera"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -67,5 +67,19 @@
   "Semester 2/Live Production": "LiCamera",
   "Semester 2/Media Intelligence": "LiChartScatter",
   "Semester 2/Relational Databases": "LiDatabase",
-  "Semester 2/Video Technology": "LiCamera"
+  "Semester 2/Video Technology": "LiCamera",
+  "Semester 1/2D Design": "🎨",
+  "Semester 1/3D Design": "LiMove3d",
+  "Semester 1/Audio Video Technology": "LiAudioLines",
+  "Semester 1/Game Engine Concepts": "LiAlbum",
+  "Semester 1/Introduction to Games": "LiGamepad",
+  "Semester 1/Jams": "LiGlassWater",
+  "Semester 1/Modern Code": "LiCode2",
+  "Semester 1/Motion Design": "LiZoomToSelection",
+  "Semester 1/Photography": "LiCamera",
+  "Semester 1/Visual Aesthetics": "LiScreenShare",
+  "Semester 1/Web Design": "LiWebhook",
+  "Semester 1/Web Fundementals": "LiWebhook",
+  "Semester 1": "LiAlertCircle",
+  "Semester 2": "LiBadgeEuro"
 }
