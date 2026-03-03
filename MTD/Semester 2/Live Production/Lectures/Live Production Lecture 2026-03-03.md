@@ -9,7 +9,18 @@ woah there’s a #spider just hangin there
 <mark class="hltr-red">oh my god its going down NO WAY</mark>
 
 ![[MTD.ba_LPR2_le01.pdf]]
-# Requirements
+
+## pdf notes
+
+> ([[MTD.ba_LPR2_le01.pdf#page=31&selection=4,0,4,17&color=red|MTD.ba_LPR2_le01, p.31]])
+> Electrical Sources
+
+
+
+> ([[MTD.ba_LPR2_le01.pdf#page=28&selection=8,10,8,32&color=red|MTD.ba_LPR2_le01, p.28]])
+> requires registration!
+
+# Project 
 #### LIVE PRODUCTION
 
 ###### TEAM

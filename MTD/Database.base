@@ -12,14 +12,14 @@ views:
       - file.embeds
       - file.ext
     sort:
-      - property: file.tags
+      - property: file.ctime
         direction: DESC
       - property: file.name
-        direction: DESC
-      - property: file.ctime
         direction: ASC
       - property: file.size
-        direction: ASC
+        direction: DESC
+      - property: file.tags
+        direction: DESC
       - property: file.embeds
         direction: ASC
     columnSize:
