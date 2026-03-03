@@ -4,10 +4,11 @@ ugh this already sounds super lame….
 
 ![[MTD.ba_LPR2_le00.pdf]]
 
-woah there’s #spider just hangin there 
+woah there’s a #spider just hangin there 
 
 oh my god its going down NO WAY
 
+![[MTD.ba_LPR2_le01.pdf]]
 # Requirements
 #### LIVE PRODUCTION
 
