@@ -6,8 +6,9 @@ Hardware:
 
 - Sennheiser E604
 - AKG CK 91 SE 300B 
+- Focusrite Scarlett 2i2 3rd Gen
 
-us dumbasses accidentally used two dynamic mics lol 
+us (me) dumbasses accidentally used two dynamic mics lol 
 
 (my fault)
 
