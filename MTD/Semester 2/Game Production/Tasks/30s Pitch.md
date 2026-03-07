@@ -24,3 +24,12 @@ yeah?
 ![[Pasted image 20260307162221.png]]![[Pasted image 20260307162226.png]]
 ![[Pasted image 20260307162302.png]]
 k
+
+# Video Idea
+
+- Zoe voiceover (kinda cringe)
+- Zoe represented as random fox lol
+- pictures of heavily compressed images of sandy stuff and ship wrecks 
+- car
+- nyoom 
+- i just do a silly thing !!!!!! 
