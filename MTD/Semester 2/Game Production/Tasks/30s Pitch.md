@@ -43,3 +43,16 @@ k
 - Retro
 - low-poly models with low res textures
 - gay
+
+
+# Sketches
+
+![[god help me]]
+
+
+# sitgjslkghdsh
+
+i spent way too much time on this shit
+
+![[Free Bird.wav]]
+![[8mb.video-viV-MaAUf6MY.mp4]]![[8mb.video-g4d-LVwI3qUa.mp4]]![[8mb.video-YLF-gCIkAemV.mp4]]
