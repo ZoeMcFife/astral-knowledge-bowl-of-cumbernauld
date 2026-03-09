@@ -56,3 +56,36 @@ i spent way too much time on this shit
 
 ![[Free Bird.wav]]
 ![[8mb.video-viV-MaAUf6MY.mp4]]![[8mb.video-g4d-LVwI3qUa.mp4]]![[8mb.video-YLF-gCIkAemV.mp4]]
+
+# Script
+
+Fox1:
+
+Explore the Wastelands!
+
+Fox2:
+
+Scavenge Ship Wrecks!
+
+Fox3:
+
+Fight other Survivors!
+
+Fox4:
+
+Help your Tribe!
+
+Done and done!
+
+# Video
+
+```vid
+https://www.youtube.com/watch?v=pzmfIIdbLKM
+Title: Scrapyard Pitch
+Author: Zoe McFife
+Thumbnail: https://i.ytimg.com/vi/pzmfIIdbLKM/mqdefault.jpg
+AuthorUrl: https://www.youtube.com/@ZoeMcFife
+```
+
+[Github Link](https://github.com/ZoeMcFife/Zoes-Hagenberg-2-Electric-Boogaloo/releases/tag/Scrapyard)
+
