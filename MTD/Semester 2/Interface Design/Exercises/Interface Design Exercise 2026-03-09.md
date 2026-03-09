@@ -8,3 +8,18 @@ we have to a stupid 1 minute presentaion :sob:
 
 i dont wanna 
 
+# Interface ~~Hunt~~ Fishin’
+
+## Information & Service
+
+## Consumption & Lifestyle
+
+## Creation & Operation
+
+## Play & Immersion
+
+Good Example is Elite: Dangerous 🤤🤤🤤🤤🤤
+
+## Assistance & Intelligence 
+
+https://miro.com/app/board/uXjVG0lJggY=/
