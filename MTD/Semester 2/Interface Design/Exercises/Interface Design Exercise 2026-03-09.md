@@ -23,3 +23,5 @@ Good Example is Elite: Dangerous 🤤🤤🤤🤤🤤
 ## Assistance & Intelligence 
 
 https://miro.com/app/board/uXjVG0lJggY=/
+
+![[IDE2IL1 - Intro Interface Worlds.pdf]]
