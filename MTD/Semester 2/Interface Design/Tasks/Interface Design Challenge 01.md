@@ -104,7 +104,7 @@ Am Ende habt ihr:
 
 - **10 analysierte Interfaces**
 - eine **strukturierte UX-Bewertung**
-- eine **visuelle Präsentation eurer Findings**
+- eine **visuelle Präsentation eurer Findings** 
 
 [Moodle](https://elearning.fh-ooe.at/mod/assign/view.php?id=720113)
 # Good Examples
