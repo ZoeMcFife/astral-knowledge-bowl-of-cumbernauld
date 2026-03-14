@@ -110,7 +110,37 @@ Am Ende habt ihr:
 # Good Examples
 
 - Elite: Dangerous
+	- Welt: Play & Immersion
+	- Form Factor: Desktop
 - Zoe’s Blender
+	- Welt: Consumption & Lifestyle
+	- Form Factor: Kitchen Utensil
+- GitHub Desktop
+	- Welt: Creation & Operation
+	- Form Factor: Desktop App
+- Apple Music
+	- Welt: Consumption & Lifestyle
+	- Form Factor: Mobile App
+- Steam Controller
+	- Welt: Play & Immersion
+	- Form Factor: Controller
 # Bad Examples
 
 - Star Citizen
+	- Welt: Play & Immersion
+	- Form Factor: Desktop
+- Attached Bottle Caps
+	- Welt: Consumption & Lifestyle
+	- Form Factor: Food
+- Logi Options +
+	- Welt: Creation & Operation
+	- Form Factor: Desktop
+
+
+
+# Factors
+
+- Effectiveness / Efficiency
+- Satisfaction
+- Learnability / Memorability
+- Safety

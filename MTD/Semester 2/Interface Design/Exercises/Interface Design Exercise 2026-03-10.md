@@ -9,3 +9,6 @@ Assistance & Intelligence → Reflective Processing
 # Form Factor Safari 
 
 ! :LiAArrowDown:
+
+
+![[IDE2IL2 - Interface Form Factors.pdf]]
