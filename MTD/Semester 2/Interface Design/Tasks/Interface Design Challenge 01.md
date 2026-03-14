@@ -144,3 +144,6 @@ Am Ende habt ihr:
 - Satisfaction
 - Learnability / Memorability
 - Safety
+
+
+![[Interface Design Challenge 01 Canvas.canvas]]
