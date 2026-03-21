@@ -152,3 +152,6 @@ AND g.price_initial =
     );
 
 ```
+
+
+test
