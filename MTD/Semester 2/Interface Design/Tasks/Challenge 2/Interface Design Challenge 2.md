@@ -26,7 +26,7 @@ ctrl z doesn’t get reid of the blue selection thingy
 
 ![[Pasted image 20260408162619.png]]
 
-![[Pasted image 20260408163020.png]]
+![[Pasted image 20260408163020.png|688]]
 
 no option to select contrast etc for the smart detection…. 
 
