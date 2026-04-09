@@ -113,3 +113,107 @@ adding layer masks is just impossible what the fuck is this shite
 text preview doesnt show the color it actually is
 
 nvm it was under a layer group with color…..
+
+
+
+# meow
+
+
+## Visibility of System Status
+*see where you are and what youre doing*
+
+
+### Selection
+
+this is also under consistency and standards
+
+finishing a selection using the scissor select doesn’t turn the selction into a zebra outline like the regular selection tool
+
+![[Pasted image 20260408163313.png]]
+
+severity: 2
+
+### Quick Mask
+
+Selecting quick mask creates a new Channel with the mask, but it gives no indication that it did that
+
+![[Pasted image 20260408163444.png]]
+
+Severity: 3
+
+## Match between System & Real World
+
+
+## User Control and Freedom
+*shortcuts, undo, etc*
+
+## Consistency and Standards
+
+*stuff hsould feel similiar → ie be like photoshop in this case lol*
+
+### Export doesn’t display common options
+
+when exporting an image, it doesn’t display more common file formats (png, jpg, etc) first and you have to scroll throw a long list of file types
+
+![[Pasted image 20260408153609.png]]
+
+severity: 2
+
+## Align and Distribute
+
+Align an distribute is in the same category of tool like text, paint brush
+
+![[Screenshot 2026-04-08 165218.png]]
+
+Severity: 0
+
+### Foreground Select
+also in recognitzion rather than recall
+
+Icon of Foreground select looks similiar to “object selection” in other photo editing software, but it does something else, weirdly 
+
+![[Pasted image 20260408162619.png]]
+
+CTRL + Z doesn’t undo the selection and bloue thing → user control and freedom 
+
+
+## Error Prevention
+*user does error → dont let it uh go through → prevent it*
+
+## Recognition rather than Recall
+*wheter features and icons need to be “learned” or if its intuitive*
+
+
+## Flexibilty and Efficiency of Use
+*power user stuff, personalizazion and customization, Accessibilty*
+
+## Aesthetic and Minimalistic Design
+
+### Contrast Color Layer
+
+Layers can be assigned a color, some colors make the eye icon not be visible and low contrast
+
+![[Screenshot 2026-04-08 165908.png]]
+
+Severity: 2
+
+### Change brush size shortcut
+→ also falls under Consistency and Standards
+
+alt + right click short cut 
+
+→ cursor moves 
+→ size changes (regardless of direction instead of changing hardness/size based on direction like photoshop)
+
+![[Pasted image 20260408163914.png]]
+
+its hard to see what you’re changing 
+
+
+
+## Help Users with Errors
+
+*if error occurs let user know properly*
+
+## Help and Documentation
+
