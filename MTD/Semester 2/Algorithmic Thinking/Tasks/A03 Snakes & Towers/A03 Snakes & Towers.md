@@ -2,7 +2,7 @@
 
 - ***Name:*** Zoe McFife
 - ***Legal Name and Student NR***: Bunea, S2510238021
-- ***Time Spent***: XX:XX:XX
+- ***Time Spent***: 10:42:46 *(has it really been that much? jeez.)*
 
 <hr>
 
@@ -479,7 +479,7 @@ Stack works because the disks of the Hanoi game are quite literally stacked on e
 
 ## 2.1 LinkedList
 
-I made a generic doubly linked list implementation. It had some issues because I’m an idiot sometimes, but I haven’t noticed any issues in testing anymore!
+I made a generic doubly linked list implementation. It had some issues because I’m an idiot sometimes, but I haven’t noticed any issues in testing anymore! *(Update, found an issue. Unit testing is important)*
 
 ``` java
 public class LinkedList<E> implements Iterable<E>  
@@ -569,9 +569,9 @@ public class LinkedList<E> implements Iterable<E>
             Node<E> oldNode = getNode(index - 1);  
   
             Node<E> newNode = new Node<>(item);  
-            newNode.prev = oldNode.prev;  
-            newNode.next = oldNode;  
-            oldNode.prev = newNode;  
+            newNode.prev = oldNode;  
+            newNode.next = oldNode.next;  
+            oldNode.next = newNode;  
   
             size++;  
         }  
@@ -1520,3 +1520,14 @@ public class SnakeController
     }  
 }
 ```
+
+### 2.3.3 Example Game
+
+![[Pasted image 20260412151317.png]]
+
+![[Pasted image 20260412151409.png]]
+
+![[Pasted image 20260412151402.png]]
+
+![[Pasted image 20260412151431.png]]
+
