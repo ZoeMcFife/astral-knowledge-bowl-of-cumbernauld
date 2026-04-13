@@ -15,3 +15,4 @@ midi controller - map parameter uhgh fuck
 parameter → learn
 
 parameter stuff via OSC  (touchOSC)
+
