@@ -2,6 +2,8 @@
 
 dedicated hardware
 
+![[05_AdvancedComponents.pdf]]
+
 # Atems
 
 Atem Mini
