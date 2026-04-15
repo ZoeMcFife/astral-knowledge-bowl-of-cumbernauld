@@ -1,4 +1,4 @@
-#algorithmic_thinking 
+#algorithmic_thinking #java #snake
 
 - ***Name:*** Zoe McFife
 - ***Legal Name and Student NR***: Bunea, S2510238021
