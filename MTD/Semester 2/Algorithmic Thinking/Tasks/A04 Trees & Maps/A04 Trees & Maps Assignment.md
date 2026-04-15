@@ -1,7 +1,7 @@
 #algorithmic_thinking #java #trees #maps
 
 - ***Name:*** Zoe McFife
-- ***Legal Name and Student NR***: Bunea, S2510238021
+- ***Legal Name and Student NR:*** Bunea, S2510238021
 - ***Time Spent***: 
 
 <hr>
