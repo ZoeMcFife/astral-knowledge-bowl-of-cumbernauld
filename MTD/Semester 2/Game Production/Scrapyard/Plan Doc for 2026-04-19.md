@@ -8,25 +8,25 @@ okay things i gotta handle:
 	- [x] Rough Character Ideas
 	- [x] Missions
 	- [x] Ending
-- [ ] Create Story Obsidian Vault
+- [x] Create Story Obsidian Vault
 - [ ] Plan Game Mechanics as Git Issue
 	- [ ] Vehicle Driving
-		- [ ] Discussion Topic: Vehicle Combat
-		- [ ] Discussion Topic: Tractor Beam Upgrade
+		- [x] Discussion Topic: Vehicle Combat
+		- [x] Discussion Topic: Tractor Beam Upgrade
 		- [ ] 
-	- [ ] On ground Movement
-		- [ ] Handheld Weapons
-			- [ ] Gun
-			- [ ] Repair Tool
-		- [ ] Interaction
-		- [ ] Picking up Objects
+	- [x] On ground Movement
+		- [x] Handheld Weapons
+			- [x] Gun
+			- [x] Repair Tool
+		- [x] Interaction
+		- [x] Picking up Objects
 	- [ ] Enemies
-		- [ ] Ground AI
-			- [ ] Walk around
-			- [ ] Shoot at player
-		- [ ] Vehicle AI
-			- [ ] requires: Vehicle Combat
-			- [ ] Drive around and shoot at player
+		- [x] Ground AI
+			- [x] Walk around
+			- [x] Shoot at player
+		- [x] Vehicle AI
+			- [x] requires: Vehicle Combat
+			- [x] Drive around and shoot at player
 			- [ ] Discussion Topic: Looting
 		- [ ] Events:
 			- [ ] Random Enemy spawns while driving
@@ -207,8 +207,8 @@ flight suit, larger jacket like in the image below kinda, but black
 
 Engineer - 
 
-- Non Binary
-- Species : idk yet
+- Non Binary - they / she
+- Species : FENNEC
 
 - Used to be a Ship engineer on a station, joined a pirate crew one day but got shafted onto scrapyard after improving the pirates ship without getting paid 
 
