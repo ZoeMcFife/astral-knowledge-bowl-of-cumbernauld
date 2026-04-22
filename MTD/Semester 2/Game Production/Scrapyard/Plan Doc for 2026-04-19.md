@@ -44,7 +44,7 @@ Ox’vic Pyrr C8 Cardiff
 
 As Discussed; Scrapyard could beginn with Sam crashing on the planet 
 
-- Outside view cinematic of the ship crashing?
+- **Outside view cinematic of the ship crashing?**
 - First Person Perspective?
 - Start outside the ship?
 
