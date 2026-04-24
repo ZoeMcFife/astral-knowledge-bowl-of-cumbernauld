@@ -1,3 +1,5 @@
 #algorithmic_thinking 
 
 ![[08_AI_Context_Engineering.pdf]]
+
+![[09_State_Machines.pdf]]
