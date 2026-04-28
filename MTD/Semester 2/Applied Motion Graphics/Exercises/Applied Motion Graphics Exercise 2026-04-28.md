@@ -1,6 +1,6 @@
 #applied_motion_graphics #lottie_files #after_effects 
 
-
+![[MGR_02_Projektinfos.pdf]]
 
 # Idea for priject
 
@@ -41,3 +41,21 @@ with specs,
 rabauke shop lmao. they have the most ships as of now, so makes sense…. oddtiy the lore…..
 
 ![[RabaukeLogo-01.png]]
+Screens:
+
+- ship selection
+- ship detail
+	- animated turn table
+	- animated spec stuff
+	- animated order button 
+- purchase processing screen
+- purchase finished screen
+
+animations?
+
+- buttons
+- transistion
+- purchase complete
+- color or spec slection stuff
+- idk
+- ill cry
