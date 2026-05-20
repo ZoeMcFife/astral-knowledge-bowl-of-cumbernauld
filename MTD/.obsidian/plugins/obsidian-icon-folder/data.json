@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiGamepad",
       "LiBrain",
       "🏜",
       "LiArmchair",
-      "LiAirVent",
-      "LiBadgeEuro"
+      "LiAirVent"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -85,5 +85,6 @@
   "Semester 2/Applied Motion Graphics": "LiAirVent",
   "Semester 2/Web Technologies": "LiArmchair",
   "Semester 2/Game Production/Scrapyard": "🏜",
-  "Semester 2/Artificial Intelligence": "LiBrain"
+  "Semester 2/Artificial Intelligence": "LiBrain",
+  "Semester 2/Game Programming": "LiGamepad"
 }
