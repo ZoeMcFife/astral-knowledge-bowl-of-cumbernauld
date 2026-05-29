@@ -83,10 +83,6 @@
       "color": "1dGvQBB8vqL3BYtzDoefG"
     },
     {
-      "path": "Semester 2/Video Technology",
-      "color": "pj1Epf9jjC8T1OZvFyMK-"
-    },
-    {
       "path": "Semester 1/2D Design",
       "color": "7rm7fJY0QpwXkhmbcIy4G"
     },
@@ -165,6 +161,10 @@
     {
       "path": "Semester 2/AV Technology",
       "color": "l1WeBpfFXmYzLCRMDLw_w"
+    },
+    {
+      "path": "Semester 2/AV Technology/Video Technology",
+      "color": "pj1Epf9jjC8T1OZvFyMK-"
     }
   ]
 }

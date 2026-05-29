@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiCamera",
       "LiGamepad",
       "LiBrain",
       "🏜",
-      "LiArmchair",
-      "LiAirVent"
+      "LiArmchair"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -66,7 +66,6 @@
   "Semester 2/Live Production": "LiCamera",
   "Semester 2/Media Intelligence": "LiChartScatter",
   "Semester 2/Relational Databases": "LiDatabase",
-  "Semester 2/Video Technology": "LiCamera",
   "Semester 1/2D Design": "🎨",
   "Semester 1/3D Design": "LiMove3d",
   "Semester 1/Audio Video Technology": "LiAudioLines",
@@ -86,5 +85,6 @@
   "Semester 2/Artificial Intelligence": "LiBrain",
   "Semester 2/Game Programming": "LiGamepad",
   "Semester 2/AV Technology/Audio Technology": "LiAudioLines",
-  "Semester 2/Web Technologies": "LiArmchair"
+  "Semester 2/Web Technologies": "LiArmchair",
+  "Semester 2/AV Technology/Video Technology": "LiCamera"
 }
