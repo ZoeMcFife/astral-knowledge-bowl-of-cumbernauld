@@ -28,3 +28,5 @@ dynamishcen mikrofon sollte weniger höhen aben
 höhen anheben damit es wieder gleich klingt
 
 ![[Pasted image 20260305141659.png]]![[Pasted image 20260305141705.png]]
+
+![[Aufgabenprotokoll.pdf]]
