@@ -2,6 +2,17 @@
 
 # Mikrophone 
 
+
+
+
+
+
+
+
+
+
+
+
 <mark class="hltr-green">*// being able to hear the differences between microphones might be important*</mark>
 # Lautsprecher 
 
