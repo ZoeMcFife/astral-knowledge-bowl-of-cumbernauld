@@ -100,6 +100,23 @@ tiny
 - 24 Bit: 10 - 20 DBFS Headroom
 - 16 Bit: < 10 DBDS Headroom
 
+### Vergleich Dynamisch vs Kondensator
+
+[thomann](https://www.thomann.at/onlineexpert_page_live_gesangsmikrofone_dynamisch_oder_kondensator_die_klangunterschiede.html)
+
+**Kondensator**
+
+- höherer pegel
+- höhere bässe
+- kann kleinere frequenzen besser aufnehemen
+- schnelleres impulsverhalten
+- größerer bereic, vorallen auch in den höhen
+
+
+**Dynamisch**
+- weniger verzerrung in den höhen
+- 
+
 
 <mark class="hltr-green">*// being able to hear the differences between microphones might be important*</mark>
 # Lautsprecher 
