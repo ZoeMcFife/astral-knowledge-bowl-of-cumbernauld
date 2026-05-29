@@ -61,7 +61,6 @@
   "Semester 1/Modern Code/Lectures/Modern Code Lecture 2026-01-26.md": "LiCode2",
   "Semester 1/Modern Code/Lectures/Modern Code Lecture 2026-02-02.md": "LiCode2",
   "Semester 2/Algorithmic Thinking": "LiBrain",
-  "Semester 2/Audio Technology": "LiAudioLines",
   "Semester 2/Game Production": "LiGamepad2",
   "Semester 2/Interface Design": "LiMousePointer2",
   "Semester 2/Live Production": "LiCamera",
@@ -83,8 +82,9 @@
   "Semester 1": "LiAlertCircle",
   "Semester 2": "LiBadgeEuro",
   "Semester 2/Applied Motion Graphics": "LiAirVent",
-  "Semester 2/Web Technologies": "LiArmchair",
   "Semester 2/Game Production/Scrapyard": "🏜",
   "Semester 2/Artificial Intelligence": "LiBrain",
-  "Semester 2/Game Programming": "LiGamepad"
+  "Semester 2/Game Programming": "LiGamepad",
+  "Semester 2/AV Technology/Audio Technology": "LiAudioLines",
+  "Semester 2/Web Technologies": "LiArmchair"
 }

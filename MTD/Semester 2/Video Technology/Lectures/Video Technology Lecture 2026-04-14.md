@@ -1,6 +1,10 @@
 #video #av_technology 
 
-Signal Elektronik
+Sig
+
+![[VL06_Kamerakopf_Signalelektronik_Belichtungshilfen.pdf]]
+
+nal Elektronik
 
 ![[Pasted image 20260414104357.png]]
 
