@@ -8,3 +8,5 @@ pretty basic
 
 
 ![[VL06_Kamerakopf_Signalelektronik_Belichtungshilfen.pdf]]
+
+FEHLER

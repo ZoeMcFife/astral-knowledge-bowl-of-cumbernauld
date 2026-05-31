@@ -234,22 +234,410 @@ balanced
 
 - SPDIF
 	- 2 channels
-	- 
+	- 16/20/24 bits
+	- low samplerate up to 96khz
+- AES
+	- 2 channels
+	- 16/20/24 bits
+	- high sample rate 192khz
+	- 110 ohm
+- ADAT
+	- 8 channels
+	- 24bits
+	- samplerate depends on channel count
+	- toslink / optical
+- AoE
+	- 64x64 channel streams
+	- 32bit
+	- 192khz
+	- through ethernet cables
+
+## Routing
+
+can be done through local or networked interfaces
+
+![[Pasted image 20260531112814.png]]
+![[Pasted image 20260531112823.png]]
+
+you can have like → these inputs go to these outputs
+
+in like matrix type thingy
 
 # Parameter Control
 
+- analog → resistors in circuits, VCA (voltage controlled amplifiers, etc)
+- digital → DAW automations, midi, osc, DCA, DMX, etc
 
+## Automations
+
+- all effect parameters can be controlled
+- envelopes → recorded automations
+- can be controlled via mouse, LFOs, midi, osc or other sources
+
+## MIDI
+
+- musical intrument digital interface
+- serial, async, unidirectional
+- pitch, velocity and length
+
+- 1 status byte + 2 data bytes
+- 16 channels
+- 128 step resolution
+
+## OSC - Open Sound Controller
+
+- higher resolution, flexible midi alternative
+
+## DMX
+
+- digital multiplex, async, serial
+- used for stage lighting and effects
+- daisy chainable
+- 512 channels
+- 8bit
+
+- can be controlled with scenes in softwre
 # Signalelektronik
 
+## Bildprozessor
 
+- Image Processing Unit
+
+ES macht:
+
+- bayer filterung
+- entmosaicing
+- a lot fo shit
+
+Früher → für jede funktion, eigeine hardware 
+
+Heute macht der IPU alles
+
+## White Balance
+
+→ gleicht farbtemperatur aus um neutrales weiß zu erzeugen
+
+→ manuel → verwendung von 18% Grau card (ideal)
+
+## Black (-set)
+
+→ Dunkelströme → schwache helligkeit wenn kein licht zum sensor kommt
+→ eigenrauschen, IR von wärme
+
+→ schwarzwert kann eingestellt werdenm und kompensiert dafür
+
+![[Pasted image 20260531114656.png|432]]
+
+## Dual ISO
+
+Knee Point → helligkeits werd ab den die kamera mit geringerer empfindlichkeit arbeitet
+
+![[Pasted image 20260531114828.png]]
+
+Mit Dynamic Contrast Control kann dieser punkt automatische gesteuert werden.
+
+## Contrast Control
+
+- detailing
+	- kontruren von objecten / texturen entscheident
+	- unschaft → raänder haben einen weichen helligkeitsverlauf
+	- scharft → kantige helligkeits sprünke
+- skin detailing
+	- konturschärfe von hauttöne werden gesenkt
+
+## Gain / ISO
+
+verstärkung des signals
+
+in DB
+
+rauschen
+
+Gain Presets:
+
+- L - 0db
+- M - 9db
+- H - 18db
+
+eisntellbar
+
+**Hypergain**
+
+35db verstärkung
+
+### ISO analog
+
+kommt von der ISO normung
+
+Film standard lichtempfindlichkeit
+
+exponentiell
+
+### ISO digital
+
+entspricht gain
+
+100 iso → 0 db
+200 iso → 6db
+usw
+
+
+**Base ISO**
+
+- natürliche empfindlicheit
+
+**Native ISO**
+
+- verstärkung durch transistor in der ad wandlung
+
+**Extended ISO**
+
+- digitale nachberarbeitung 
+- just don’t, its ass
+
+### Dual Native ISO
+
+sensor wird durch zwei verschiedene transistor versärkt
+
+umschaltbarer native iso bereich
+
+→ jedes sensel wird mit zwei pfaden verbundend
+
+## Shutter
+
+elektronik shutter
+
+![[Pasted image 20260531120135.png]]
+
+shutter impuls → started neue aufsammlung
+
+**Flackern**
+
+→ frequenz von licht überlappt mit shutterspeed
+
+**Global vs Rolling Shutter**
+
+## Zebra
+
+- 70% → korrekte beleuchtung von personen
+- 100% → überbelichting
+
+## False Color
+
+- luminanz werte werden durch farben dargestellt
+
+## Testsignals
+
+verwended um farb / helligkeitssignale einzustellen
+
+![[Pasted image 20260531121050.png]]
 
 # Optische Systeme
 
+## ND Filter
+
+neutral density filter
+
+für lang zeit belichtung von hellen szenen
+
+![[Pasted image 20260531121311.png]]
+
+Variable ND filters
+
+→ do the spinny with light polarisation 
+
+## Polarisationsfilter
+
+reduziert licht menge
+nur polarisiertes licht get durch
+reduziert reflectionen
+
+## Effekt Filter
+
+silly effects
+
+![[Pasted image 20260531121522.png]]
+
+## Objectiv
+
+![[Pasted image 20260531121612.png]]
+
+### Blende
+
+![[Pasted image 20260531121624.png]]
+
+**F-Stop**
+
+f/2.4, etc
+
+wie geöffnet die blende ist relativ
+
+T-Stop → absolut 
+
+→ blende geöffnet → mehr licht, geringe tiefenschärfe 
+→ blende geschlossen → weniger licht, hohe tiefenschärfe
+
+![[Pasted image 20260531122120.png]]
+
+## Brennweiten
+
+- Weitwinkel
+- Normalbrennweite
+- Tele
+
+### Linsen
+
+**Sammellinse (Konvex)**
+
+![[Pasted image 20260531122329.png]]
+
+**Streulinse (Konkav)**
+
+![[Pasted image 20260531122335.png]]
+
+mehr linsen um Lens - Error zu vermeiden
+
+Zoomlenses → bewegbare linsen inside
+
+## Lens Issues
+
+### **Chromatische Aberration**
+
+![[Pasted image 20260531122637.png]]
+
+→ abblenden reduziert es
+→ software korrektur
+→ optisch durch achromate
+
+### **Sphärische Aberration**
+
+Rand bereich wird anders fokusiert wegen linsen Krümmung 
+
+![[Pasted image 20260531122842.png]]
+
+→ abblenden
+
+kann durch aspärische Linsen korrigiert werden
+
+### **Bildfeldwölbung**
+
+bild wird nicht Plan auf dem sensor gebildet, sonder leicht gewölbt
+
+→ ablenden
+→ kombination von meheren linsen
+
+![[Pasted image 20260531123026.png]]
+![[Pasted image 20260531123044.png]]
+
+### Optische Verzerrung 
+
+Lens didstortion
+
+→ wide angle objetive
+
+![[Pasted image 20260531123207.png]]
+
+## Schärfentiefe
+
+![[Pasted image 20260531123229.png]]
+
+![[Pasted image 20260531123242.png]]
+
+## Lens Mounts
+
+Z Mount
+
+F Mount
+
+![[Pasted image 20260531123356.png]]
+
+→ Durchmesser
+→ Auflagemaß
+
+
+## Bildstabilisierung
+
+EIS 
+→ bild flow wird analysirt 
+→ crop
+
+Gyro
+
+→ gyro daten werden mitgespeichert 
+
+OIS
+
+linse oder sensor ist beweglich
 
 # Live Production / Broadcast
 
 
+Broadcast cameras werden üblicherweise remote gesteuert 
+
+CCU → Camera control unit
+
+MSU → Master Setup _Unit
+
+Intercom
+
+Tally light
+
+Teleprompter
+
+Timecode
+
+BNC bajonnet cables
+
+!! 50Ohm vs 75 Ohm! für videotechnic 76 ohm kabel verwenden
+
+Reflexionen!1
+
+SDI 
+
+
+
+Video audio converter
+
+
+SDI to hdmi! 
+
+## Atem videomischer
+
+stuff
+
+
+downstream keys
+
+upstream keys für chroma keying, pip, etc
+
 # Kamera Drohnen
 
-
+![[Drones.pdf]]
 # Formate
+
+![[Pasted image 20260531133201.png]]
+
+
+Container VS Codec
+
+![[Pasted image 20260531133544.png]]
+
+
+![[Pasted image 20260531133704.png]]
+![[Pasted image 20260531133717.png]]
+![[Pasted image 20260531133735.png]]
+![[Pasted image 20260531133802.png]]
+
+
+
+![[Pasted image 20260531133848.png]]
+
+==FEHLER==
+![[Pasted image 20260531133907.png]]
+
+
+![[Pasted image 20260531135818.png]]
+
+![[Pasted image 20260531140016.png]]
+
+![[Pasted image 20260531140103.png]]
