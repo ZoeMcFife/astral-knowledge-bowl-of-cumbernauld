@@ -198,7 +198,7 @@ Using `plot_history` lets us see how good the model did, visually.
 plot_history(optimus_prime.history)
 ```
 
-![[Pasted image 20260617110917.png|420]]
+![[Pasted image 20260617110917.png|456]]
 
 ![[Pasted image 20260617110922.png|451]]
 
@@ -259,7 +259,7 @@ model_15 = NeuralNetwork(
     layers=[
         input_layer,
         tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dropout(0.3),
+        tf.keras.layers.Dropout(0.3), # percent
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Dropout(0.3),
