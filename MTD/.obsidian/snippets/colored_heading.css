@@ -2,3 +2,9 @@ body
 {
 	--h1-color: #db2727;
 }
+
+
+.callout[data-callout="answer"] {
+    --callout-color: 218, 187, 119; /* RGB values, blue */
+    --callout-icon: lucide-check-circle;
+}
