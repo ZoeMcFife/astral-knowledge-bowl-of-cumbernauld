@@ -18,5 +18,6 @@
   "obsidian-plantuml",
   "markdown-prettifier",
   "obsidian-image-gallery",
-  "pdf-plus"
+  "pdf-plus",
+  "better-export-pdf"
 ]

@@ -1,10 +1,35 @@
 body
 {
 	--h1-color: #db2727;
+    --h2-color: #899aeb
+}
+
+.callout[data-callout="answer"] 
+{
+    --callout-color: 218, 187, 119; /* RGB values, blue */
+    --callout-icon: lucide-check-circle;
+}
+
+.theme-light 
+{
+    --custom-bold-color: #e76d09;
+    --custom-text-color: #1a1a1a;
+}
+
+.theme-dark
+ {
+    --custom-bold-color: #daba77;
+    --custom-text-color: #ffeecb;
+}
+
+.markdown-preview-view strong,
+.markdown-source-view.mod-cm6 .cm-strong {
+    color: var(--custom-bold-color) !important;
 }
 
 
-.callout[data-callout="answer"] {
-    --callout-color: 218, 187, 119; /* RGB values, blue */
-    --callout-icon: lucide-check-circle;
+.markdown-preview-view,
+.markdown-source-view.mod-cm6,
+.markdown-source-view.mod-cm6 .cm-content {
+    color: var(--custom-text-color) !important;
 }
