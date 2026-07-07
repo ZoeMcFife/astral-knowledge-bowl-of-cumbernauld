@@ -1,4 +1,260 @@
-#artificial_intelligence 
+# Overview
+
+![[IMG_5393.png]]
+## What is AI
+
+- environment aware
+- performs intelligent actions in a goal oriented matter
+
+## Terminology
+
+- Artificial Intelligence
+	- Machine Learning
+		- Deep Learning
+
+**Strong AI**
+- more general capabilities
+- similar / superior to humans
+
+**Weak / Narrow AI**
+- made to solve a specific task
+
+<hr>
+
+# ML Basics
+
+![[deer_in_space_no_top.png]]
+## Explicit Models
+
+- to know *how* and *why* things work 
+- find a solution to new problems *deductively*
+- for some tasks to computationally expensive or complex
+## Inductive Learning in Machine Learning
+
+- using previous data to
+	- get insights
+	- predict future
+## Fish Detection
+
+*since this is on the example exam, I’m going a bit deeper in the fish*
+
+![[ironcad.png|222]]
+
+**Goal — Sea Bass / Salmon Detection**
+### *Our* Fish 
+
+![[Pasted image 20260707161828.png|541]]
+
+### Basic Workflow
+
+1. Preprocessing
+	- contrast, brightness correctoin
+	- segmentation
+	- alignment
+2. Features
+	- Length
+	- Brightness
+
+![[Pasted image 20260707162209.png|314]]
+
+#### Determining a good feature
+
+Sometimes features are just pointless…
+
+**Using bar graphs:**
+
+![[Pasted image 20260707162544.png]]
+
+**Linear Separation**
+
+![[Pasted image 20260707162609.png|224]]
+
+**Highly Non-Linear Separation**
+
+![[Pasted image 20260707162628.png|226]]
+
+## Supervised vs Unsupervised ML
+
+### Unsupervised
+
+- identifying patterns in unlabeled data
+- **Target is unknown**
+
+**Projection Methods** 
+down-projection of data to lower-dimensional space in order to concentrate on the essence of the data 
+
+**Clustering**
+grouping of similar data items 
+
+**Biclustering** 
+simultaneous grouping of samples and features 
+
+**Generative model** 
+building a model that produces data that is distributed the same as the observed data
+### Supervised
+
+- identifying relationships from input and target data
+- **Targets are known**
+
+**Classification**
+target is a class label
+
+**Regression**
+target is a numeric value
+## Misc. Terminology
+
+![[ScreenShot-2024-11-15_19-21-13-A3E.jpg|418]]
+
+**Reinforcement Learning** 
+learning by feeback from the environment in an online process 
+
+**Feature Extraction**
+computation of features from data prior to machine learning (e.g. signal / image processing) 
+
+**Feature Selection**
+selection of those features that are relevant and sufficient to solve a given learning task 
+
+**Feature construction**
+construction of new features as part of the learning process
+
+**Model** 
+the specific relationship or representation we are aiming at 
+
+**Model Class**
+the class of models in which we search for the model 
+
+**Parameters** 
+representations of concrete models inside the given model class 
+
+**Model Selection/Training** 
+process of finding that model from the model class that fits/explains the observed data in the best way 
+
+**Hyperparameters** 
+parameters controlling the model complexity or the training procedure
+## Data Analysis Workflow
+
+![[Pasted image 20260707165639.png|584]]
+## Model Selection
+
+- **Model class** 
+- **Objective**
+- **Optimization algorithm**
+
+<hr>
+
+# Preprocessing
+![[Mina1_glasses.png|298]]
+
+**Categorical Features**
+finite set of labels
+
+**Numerical Features**
+numerical values
+
+## Basic Steps in Data
+
+- filtering / removing samples
+- filtering / removing features
+- create new features
+- transform features
+- dealing with missing values
+- analyze and visualize data
+## Statistics
+
+- Percentage of missing values
+- **numerical:** min, max, mean, median, variance, std, quartiles
+- **categorical:** num / % of categories
+## Visualization of Data
+
+**Single categorical feature:** 
+bar chart (recommended) or pie chart (not recommended) 
+
+**Single numerical feature:**
+histogram 
+
+**Numerical feature vs. categorical feature:** 
+set of histograms (possibly overlayed) or box(-and-whisker) plot 
+
+**Two categorical features:** 
+heatmap or two-dimensional bar chart 
+
+**Two numerical features:** 
+scatter plot 
+
+**Three numerical features:** 
+3D scatter plot (hopefully rotatable) 
+
+**Two numerical features vs. categorical feature:** 
+color-labeled scatter plot 
+
+**Three numerical features vs. categorical feature:** 
+color-labeled 3D scatter plot (hopefully rotatable)
+
+## Transformations
+
+**Scaling**
+\[0, 1] — \[-1, +1]
+
+**Scale to mean 0 and variance 1**
+
+**Removing outliers**
+
+**Log transform**
+## Feature Construction
+
+Creating a **new feature** out of **existing** features
+
+e.g.: *relative values of smth*
+## PCA — Principal Component Analysis
+
+- rotates normal vector data into linear uncorrelated **principal components**
+- orthogonal transformation
+- mutually uncorrelated, centered, ordered desc. based on variance
+- also used for dimensionality reduction → *low variance components can be removed*
+
+![[Pasted image 20260707171721.png]]
+*before — after*
+
+## Ordinal Feature as Numerical
+
+Ordered ordinal feature *(like grades)* can be converted to numeric values.
+## One-Hot Encoding
+
+having each class be a feature that’s either 0 or 1
+
+![[Pasted image 20260707172056.png]]
+
+## Missing Values
+
+- remove samples with missing values
+- remove features with missing values
+- imputation
+
+> [!WARNING]
+> data loss
+> bias
+
+### Imputation
+
+**Numerical**
+
+*replace with:*
+- fixed value
+- mean / median
+- prediction
+
+**Categorical**
+
+*replace with:*
+- fixed value
+- most frequent
+- missing category
+- prediction
+
+<hr>
+
+
+# Supervised Machine Learning
 
 ![[kitcozy-g.png]]
 ## Inputs
@@ -245,6 +501,10 @@ Model performs well on training data **but not on** test data.
 - **Dinosaurs** (DONT THINK ABOUT SEX)
 
 ![[unknown.png|341]]
+
+<hr>
+
+
 # Classifiers
 ## K-Nearest Neighbor Classifier
 
@@ -338,3 +598,5 @@ improvement comes from using gradient descent on the loss function
 good for shallow trees
 
 ![[Untitled-1.png|501]]
+
+<hr>

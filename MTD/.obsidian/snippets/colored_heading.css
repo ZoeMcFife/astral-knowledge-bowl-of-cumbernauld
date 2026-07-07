@@ -33,3 +33,40 @@ body
 .markdown-source-view.mod-cm6 .cm-content {
     color: var(--custom-text-color) !important;
 }
+
+h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+img {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    max-width: 100%;
+}
+
+pre {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+section {
+    break-inside: avoid;
+}
+
+@media print {
+
+    /* Obsidian callouts */
+    .callout {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 1em 0;
+    }
+
+    .callout-title,
+    .callout-content {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+}
