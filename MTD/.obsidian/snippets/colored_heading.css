@@ -12,61 +12,67 @@ body
 
 .theme-light 
 {
-    --custom-bold-color: #e76d09;
+    --custom-bold-color: #a33ba7;
     --custom-text-color: #1a1a1a;
 }
 
 .theme-dark
- {
+{
     --custom-bold-color: #daba77;
     --custom-text-color: #ffeecb;
 }
 
 .markdown-preview-view strong,
-.markdown-source-view.mod-cm6 .cm-strong {
+.markdown-source-view.mod-cm6 .cm-strong 
+{
     color: var(--custom-bold-color) !important;
 }
 
-
 .markdown-preview-view,
 .markdown-source-view.mod-cm6,
-.markdown-source-view.mod-cm6 .cm-content {
+.markdown-source-view.mod-cm6 .cm-content 
+{
     color: var(--custom-text-color) !important;
 }
 
-h1, h2, h3, h4 {
-    page-break-after: avoid;
-    break-after: avoid;
-}
 
-img {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    max-width: 100%;
-}
+@media print 
+{
+    h1, h2, h3, h4, h5, h6 
+    {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
 
-pre {
-    break-inside: avoid;
-    page-break-inside: avoid;
-}
+    img 
+    {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        max-width: 100%;
+    }
 
-section {
-    break-inside: avoid;
-}
+    pre /*cum*/
+    {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
 
-@media print {
+    section 
+    {
+        break-inside: avoid;
+    }
 
-    /* Obsidian callouts */
-    .callout {
+    .callout 
+    {
         break-inside: avoid;
         page-break-inside: avoid;
         margin: 1em 0;
     }
 
     .callout-title,
-    .callout-content {
+    .callout-content 
+    {
         break-inside: avoid;
         page-break-inside: avoid;
     }
-
 }

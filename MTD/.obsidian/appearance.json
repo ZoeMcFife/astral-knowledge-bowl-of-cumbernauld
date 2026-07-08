@@ -4,5 +4,6 @@
   "monospaceFontFamily": "JetBrains Mono",
   "enabledCssSnippets": [
     "colored_heading"
-  ]
+  ],
+  "theme": "obsidian"
 }

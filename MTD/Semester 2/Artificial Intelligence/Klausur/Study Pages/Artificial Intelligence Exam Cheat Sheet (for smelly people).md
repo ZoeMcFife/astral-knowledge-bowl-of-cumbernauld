@@ -5,7 +5,6 @@
 
 - environment aware
 - performs intelligent actions in a goal oriented matter
-
 ## Terminology
 
 - Artificial Intelligence
@@ -21,9 +20,10 @@
 
 <hr>
 
+
 # ML Basics
 
-![[deer_in_space_no_top.png]]
+![[deer_in_space_no_top.png|697]]
 ## Explicit Models
 
 - to know *how* and *why* things work 
@@ -44,7 +44,6 @@
 ### *Our* Fish 
 
 ![[Pasted image 20260707161828.png|541]]
-
 ### Basic Workflow
 
 1. Preprocessing
@@ -56,7 +55,6 @@
 	- Brightness
 
 ![[Pasted image 20260707162209.png|314]]
-
 #### Determining a good feature
 
 Sometimes features are just pointless…
@@ -72,7 +70,6 @@ Sometimes features are just pointless…
 **Highly Non-Linear Separation**
 
 ![[Pasted image 20260707162628.png|226]]
-
 ## Supervised vs Unsupervised ML
 
 ### Unsupervised
@@ -142,6 +139,7 @@ parameters controlling the model complexity or the training procedure
 
 <hr>
 
+
 # Preprocessing
 ![[Mina1_glasses.png|298]]
 
@@ -189,7 +187,6 @@ color-labeled scatter plot
 
 **Three numerical features vs. categorical feature:** 
 color-labeled 3D scatter plot (hopefully rotatable)
-
 ## Transformations
 
 **Scaling**
@@ -214,7 +211,6 @@ e.g.: *relative values of smth*
 
 ![[Pasted image 20260707171721.png]]
 *before — after*
-
 ## Ordinal Feature as Numerical
 
 Ordered ordinal feature *(like grades)* can be converted to numeric values.
@@ -223,7 +219,6 @@ Ordered ordinal feature *(like grades)* can be converted to numeric values.
 having each class be a feature that’s either 0 or 1
 
 ![[Pasted image 20260707172056.png]]
-
 ## Missing Values
 
 - remove samples with missing values
@@ -231,9 +226,10 @@ having each class be a feature that’s either 0 or 1
 - imputation
 
 > [!WARNING]
-> data loss
-> bias
-
+> **Following can occur:**
+> - data loss
+> - bias
+> - the scringler
 ### Imputation
 
 **Numerical**
@@ -362,7 +358,6 @@ $$
   $$
 
 ![[cliff.png|402]]
-
 ## Confusion Matric for Multi-Class
 
 ![[Pasted image 20260707174453.png|483]]
@@ -600,3 +595,283 @@ good for shallow trees
 ![[Untitled-1.png|501]]
 
 <hr>
+
+
+# Neural Networks and Deep Learning
+
+![[IMG_2155.jpg|444]]
+## Feed Forward Neural Networks
+
+- Input / Output systems
+- no feedback loops
+## Perceptrons
+
+![[Pasted image 20260708114854.png|208]]
+
+- **linear threshold unit**
+
+![[Pasted image 20260708114939.png|437]]
+### Perceptron — Logic
+
+You can model logic gates with perceptrons. 
+
+![[Pasted image 20260708115106.png]]
+
+### Perceptron — Learning Algorithm
+
+whatever the fuck this means
+![[Pasted image 20260708115411.png]]
+### Linear Separability
+
+If a dataset is linearly separable, the learning algorithm terminates and gives one solution.
+
+Non-Linearly separable problems aren’t possible with this learning algorithm.
+
+**Example:** XOR
+
+![[Pasted image 20260708115320.png]]
+### Multi-Layer Perceptrons
+
+![[Pasted image 20260708115949.png|426]]
+
+Old history people thought this wasn’t possible. But it was. 
+#### Continuous Activation Functions
+
+Discontinuous threshold was replaced by a **differentiable function $\varphi$**
+
+$$ g(\vec{x}; \vec{w}) = a = \varphi \left( w_0 + \sum_{j=1}^{d} w_j \cdot x_j \right) $$
+![[Pasted image 20260708120356.png|547]]
+
+##### Examples
+
+- **Linear** — simple choice for regression
+- **Sigmoid** — most common choice for **0 / 1** outputs
+- **Hyperbolic Tangent** — for **-1 / +1** data
+## Logistic Regress and Cross Entropy
+
+Suppose we have a perceptron with sigmoid activation function $\varphi$. Then the output
+$$
+g(\vec{x}_i; \vec{w})
+$$
+can be interpreted as an estimate of the probability that $\vec{x}_i$ belongs to the positive class:
+$$
+p(y = 1 \mid \vec{x}_i) = a = \varphi(\text{net})
+$$
+and
+$$
+p(y = 0 \mid \vec{x}_i) = 1 - a = 1 - \varphi(\text{net})
+$$
+We can unify these two formulas as follows to get a single formula for the likelihood $p(y = y_i \mid \vec{x}_i; \vec{w})$:
+$$
+p(y = y_i \mid \vec{x}_i; \vec{w}) =
+\varphi(\text{net})^{y_i}
+\cdot
+\left(1 - \varphi(\text{net})\right)^{(1-y_i)}
+=
+a^{y_i}
+\cdot
+(1 - a)^{(1-y_i)}
+$$
+
+**Maximizing likelihood** → **minimizing – 1** \* its **natural log**
+$$
+-\ln p(y = y_i \mid \vec{x}_i; \vec{w})
+=
+-y_i \cdot \ln(a)
+-
+(1 - y_i) \cdot \ln(1 - a)
+$$
+## Training Algorithm — Online
+
+1. have a dataset
+2. for all samples
+	1. compute $net$, $a$, $\delta$ 
+	2. update weights
+3. go to step 2 if stopping condition isn’t
+4. output vector of weights
+## Training Algorithm — Batch
+
+1. have a data set
+2. set delta weights to 0?
+3. for all samples
+	1. compute $net$, $a$, $\delta$ 
+	2. $\Delta \vec{w}:=\Delta \vec{w}-\eta \cdot \delta \cdot\begin{pmatrix}1 \\\vec{x}_i\end{pmatrix}$ ????
+4. update weights + delta weights
+5. go to step 2 if stopping condition isn’t
+6. output vector of weights
+## Delta Term
+
+1. If we use a sigmoid activation function along with the cross entropy loss (this combination corresponds to so-called *logistic regression*), the delta term is defined as (for a given sample $(\vec{x}_i, y_i)$)
+$$
+\delta = a - y_i
+$$
+2. If we use the identity activation $\phi(x) = x$ along with the quadratic loss (this combination corresponds to classical *linear regression*), the delta term is again given as (for a given sample $(\vec{x}_i, y_i)$)
+$$
+\delta = a - y_i
+$$
+*copied from slides, dunno what any of this even means tbh*
+## Training with Differentiable Activation
+
+- Training passes are called **epochs**
+- **Online Learning**
+	- weights are updated for each sample individually
+	- one gradient descent step per sample
+	- random order → avoiding bias
+- **Batch Learning**
+	- updates are summed up for all samples before weights get updated
+- **Mini Batches**
+	- common to use batch train on sampled batches
+	- Stochastic Gradient Descent (SGD)
+
+## Multi-Layer Perceptron 2 — Electric Boogaloo
+
+![[Pasted image 20260708123542.png|481]]
+
+idk lots of math crap
+## Forward Propagation
+
+Inputs gets propagated through the network. 
+
+![[Pasted image 20260708124048.png|659]]
+## Backpropagation
+
+![[Pasted image 20260708124453.png|657]]
+## Delta Term
+
+- The deltas of the N − 1-st layer are given as the derivative of the activation function times a weighted sum of deltas of the N-th layer, i.e. the deltas are propagated back through the network.
+- In the same way, the deltas are propagated back to the N − 2-nd layer and so forth.
+## Backpropagation — Summary
+
+### Forward Pass
+
+Set activation of input layer to input vector. For each layer (from first hidden layer to output layer), compute net input as product of activation with weight matrix and apply activation function to net input for each unit.
+### Backward Pass
+
+Perform forward pass and compute deltas for output layer. For each layer (from last hidden layer to first hidden layer), compute deltas as elementwise products of the activations’ derivatives and the product of the transpose of the weight matrix times the deltas of the next layer (the one ‘‘to the right’’). The weight updates are outer products of the deltas of the ‘‘right layer’’ and the activations of the ‘‘left layer’’.
+## Multi-Layer Perceptron — Classification
+
+**Binary Classification** – 1 output neuron
+**Multi-Class** — 1 neuron per class
+
+**Softmax** activation is commonly used for multi-class problems.
+## Multi-Layer Perceptron — Regression
+
+1. **Scaling** — scale output vectors to \[0, 1]
+2. **Linear Neurons in Output**
+
+**Quadratic Loss** function is common for loss.
+## Autoencoders
+
+- No targets
+- trained to produce input as output
+- inputs can be noisy → learning to recover original from noisy data. *(denoising autoencoder)*
+## Practical Considerations
+
+- **Input Scaling**
+	- inputs standardized to \[-1, 1]
+	- mean 0, variance 1
+- **Initial Weights**
+	- small random uniformly distributed values \[–0.1 - 0.1]
+- **Number of hidden layers**
+	- usually 2 are sufficient
+	- more for difficult tasks
+- **Number of hidden units**
+	- too few → underfitting
+	- too many → overfitting
+- **Learning Rates**
+	- low for online
+	- higher for batch
+	- adaptive
+- **Online vs Batch**
+	- online converges faster if learning rate is good
+	- mini batches is good in between
+- **Momentum**
+	- augment updates with previous update to avoid oscillations
+- **Stopping Criteria**
+	- epochs reached
+	- error below threshold
+	- improvement under threshold
+	- maximum weight change below threshold
+## Regularization
+
+Neural networks have no built measures against overfitting. That’s why this stuff exists:
+
+- **Early Stopping**
+	- quit learning when right model complexity is reached
+- **Training with Noise**
+	- add noise to inputs
+- **Weight Decay**
+	- pushes weight matrix towards 0 
+
+A moment of silence for Zoe’s sex life. 
+## The Vanishing Gradient Problem
+
+Magnitude of deltas decrease exponentially layer by layer. Backpropagation is not usable for deep networks.
+
+![[Pasted image 20260708131517.png]]
+## Deep Learning
+
+Deep learning rests on three pillars:
+
+- **New Architectures** and methods
+- **Big Data Sets**
+- **Many Resources**
+
+Two step procedure:
+
+1. **Pre-training** — representations are learned layer by layer
+2. **Fine-tuning** — makes predictions from the last layer of a pre-trained network. Usually only one extra layer at the end
+### Pre-Training Methods
+
+- **Restricted Boltzmann Machine** — stochastic neural network with one input / output layer with a hidden layer with symmetric weights.
+- **Autoencoders** — an autoencoder is trained on each step. Output layer is discarded and only hidden layer remains
+- **Supervised pre-training** — training with one hidden layer , output layer discarded, and new a layer is trained with the last hidden layer as outputs
+## Representations
+
+**Meaningful representation:**
+- hidden units correspond to specific patterns
+- hidden layers correspond to level of abstractions
+- different units, different patterns — disentangling
+### Sparse Representations
+
+- **Dropout** — Activations randomly set to 0
+- **Rectified linear units (ReLU)** — gives 0 below a certain threshold
+## Applications of Deep Learning
+
+- Computer Vision
+- Language Processing
+- Generation of Data
+- other stuff
+
+![[zoe.png|262]]
+
+<hr>
+
+
+# Convolutional Neural Nets
+
+![[VRChat_2024-10-03_21-23-02.998_3840x2160.png|369]]
+
+used for larger complex images
+## Architecture
+
+- **Convolutional Layers**
+	- consist of units that operate on small image patches
+	- units correspond to one simple feature of a patch
+	- referred to as **Filters**
+	- all units run over all patches → creates a **feature map**
+	- stackable
+	
+![[Pasted image 20260708135520.png|446]]
+
+- **Batch Normalization**
+	- normalizes outputs of the previous layer
+- **Pooling**
+	- down-samples feature maps by local max pooling
+### Types
+
+- **Standard**
+	- last convolutional layer gets flattened and connected to dense layers
+	- useful for categorical or numerical outputs
+- **Fully Convolutional**
+	- 
