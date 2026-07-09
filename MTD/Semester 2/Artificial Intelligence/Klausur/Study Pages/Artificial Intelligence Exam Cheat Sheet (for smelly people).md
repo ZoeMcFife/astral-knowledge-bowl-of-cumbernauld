@@ -616,7 +616,6 @@ good for shallow trees
 You can model logic gates with perceptrons. 
 
 ![[Pasted image 20260708115106.png]]
-
 ### Perceptron — Learning Algorithm
 
 whatever the fuck this means
@@ -874,4 +873,118 @@ used for larger complex images
 	- last convolutional layer gets flattened and connected to dense layers
 	- useful for categorical or numerical outputs
 - **Fully Convolutional**
-	- 
+	- used when you need an image as output
+## Training
+
+- Dense layers are trained like usual
+- feature maps only have one set of weight → shared by other feature maps
+	- weight sharing
+- max pooling layer → Error propagated to the input of the maximal activation
+
+**Convolutional layer outputs**
+
+![[Pasted image 20260709120411.png]]
+## Data Augmentation
+
+- translating, rotating, etc. images makes model generalize better
+	- → learns to recognize images even if they’re imperfect
+
+look at those kitlers! 
+
+![[Pasted image 20260709120724.png|472]]
+## ImageNET
+
+- large annotated image database
+## Using pre-existing Models
+
+- common approach: 
+	- use an existing model trained on vast amounts of data
+	- chop off output layer and add new layers onto that
+	- train with new specific data (fine tuning)
+## Recognition Based CNNs
+
+- **Regions of Interest** (ROI)
+	- bounding box
+	- ![[Pasted image 20260709121403.png|548]]
+- R-CNN using SVM are slow
+
+- **Fast R-CNN** — use CNN to extract RoIs from feature maps
+- **Faster R-CNN** — uses integrated CNN for RoIs
+## YOLO 
+
+- Current best model tbh
+- assigns class probability to image patches
+	- ![[Pasted image 20260709121823.png|532]]
+
+<hr>
+
+
+# Further Topics
+
+![[f2h.png|563]]
+## Time Series Analysis with ANNs
+
+Feedforward neural networks need vectorial inputs → cannot be applied to time series or sequence data.
+
+**Options:**
+- Sliding windows
+	- Problem → no learning across windows
+## Recurrent Neural Nets
+
+- Network has connection cycles
+- activation of previous windows are used as inputs for the next time step
+- backpropagation can be used
+
+RNNs are prone to **vanishing gradient problem**. Only short times between input and output can be learned.
+## Long Short-Term Memory
+
+**LSTM Memory cells**
+- linear self connected memory unit → linear activation avoids vanishing gradients
+- multiplicative input gate → prevents irrelevant inputs
+- multiplicative output → protects outputs from irrelevant memory
+
+![[Pasted image 20260709133021.png|426]]
+
+- Forget gates exist too
+## LSTM Networks
+
+1. emit output for each time step or with delay *(for forecasting)*
+2. emit after sequence *(classification)*
+3. Combination
+	1. Encoder — emits outputs after processing a sequence
+	2. Decoder — takes output of encoder and turns into a sequence
+
+![[Pasted image 20260709133511.png|509]]
+## Using LSTM for Words
+
+- Token-wise
+### Word Embeddings
+
+**Maps a word to a vector. Existing Algorithms:**
+- Global Vectors for Word Representation
+- Word2Vec
+- Bidirectional Encoder Representations from Transformers (BERT)
+## GANs — General Adversarial Networks 
+
+- **Discriminator**
+	- distinguishes real and artificial data
+	- binary output
+- **Generator**
+	- tries to recreate data
+- These two fight each other.
+### Mode Collapse
+
+Happens when the generator only creates samples of a certain sub-group.
+### Applications
+
+- Image Generators
+- Audio
+- Text
+
+
+<hr>
+
+
+# IM FREE
+
+![[MinaKit.png|408]]
