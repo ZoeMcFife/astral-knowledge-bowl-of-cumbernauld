@@ -8,6 +8,6 @@ Oh yeah don’t furget this gzuy wants ends for ifs and whiles sns ashit
  
 #modern_code #java 
 
-![[00_Introduction.pdf]]
+![[Semester 1/Modern Code/Lectures/attachments/00_Introduction.pdf]]
 
 ![[01_Java.pdf]]

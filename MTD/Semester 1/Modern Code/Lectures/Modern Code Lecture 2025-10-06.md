@@ -36,4 +36,4 @@ brhgdfgjdfgdfkgk
 
 #modern_code  #hello_world #java 
 
-![[00_Introduction.pdf]]
+![[Semester 1/Modern Code/Lectures/attachments/00_Introduction.pdf]]

@@ -51,6 +51,31 @@
       "id": "QZbzAomfN2wXNJI2pIAih",
       "name": "Orange",
       "value": "#ffa200"
+    },
+    {
+      "id": "h4nfelzLASgWoTN2pDXXc",
+      "name": "Crimson",
+      "value": "#e5384f"
+    },
+    {
+      "id": "kZJKVPqNxCVJr8x61U708",
+      "name": "Sunbeam",
+      "value": "#ffe45e"
+    },
+    {
+      "id": "TRXoZOHiD65fwWI2AsCGC",
+      "name": "Violet",
+      "value": "#8b5cf6"
+    },
+    {
+      "id": "QZcTUFZjMgKyf0tAulT4q",
+      "name": "Faggot Blue",
+      "value": "#94fdff"
+    },
+    {
+      "id": "3Dc1WHR4zpdJrsF9hxpJC",
+      "name": "Oak",
+      "value": "#967240"
     }
   ],
   "fileColors": [
@@ -156,6 +181,18 @@
     },
     {
       "path": "Semester 2/Project Management",
+      "color": "fOoz2lJMIFGBqqYNvbzEt"
+    },
+    {
+      "path": "Semester 3",
+      "color": "DGhczhnUCeKkMl2LvDNjQ"
+    },
+    {
+      "path": "Semester 3/Audio Production",
+      "color": "pj1Epf9jjC8T1OZvFyMK-"
+    },
+    {
+      "path": "Semester 3/Modern Databases",
       "color": "fOoz2lJMIFGBqqYNvbzEt"
     }
   ]
