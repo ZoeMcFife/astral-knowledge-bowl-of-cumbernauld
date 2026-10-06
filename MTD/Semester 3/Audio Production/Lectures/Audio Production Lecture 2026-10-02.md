@@ -28,3 +28,6 @@ between Accompanying lectures to camera, lighting, sound rec. on set etc.
 **18/21st Dec** Shoot (focus on _Talking Head_ recordings for every sub-team)  
 **from Jan** Editing and postproduction  
 **21st Jan** Presentation and feedback
+
+
+![[MTD.ba_AUP3_VIP3_vl00.pdf]]
