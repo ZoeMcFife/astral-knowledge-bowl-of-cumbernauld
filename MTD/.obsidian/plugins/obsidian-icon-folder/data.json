@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
-      "LiCamera",
+      "LiAngry",
+      "LiAxe",
       "🕸",
       "LiCalculator",
-      "LiArrowUpNarrowWide",
-      "LiAudioLines"
+      "LiArrowUpNarrowWide"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -92,5 +92,5 @@
   "Semester 3/Data Visualization": "LiArrowUpNarrowWide",
   "Semester 3/Statistics": "LiCalculator",
   "Semester 3/Web Architectures": "🕸",
-  "Semester 3/Video Production": "LiCamera"
+  "Semester 3/User Experience Design": "LiAngry"
 }
