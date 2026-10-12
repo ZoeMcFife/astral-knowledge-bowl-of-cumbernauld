@@ -126,7 +126,7 @@ Mina Airfryer
 Mina Elevator
 Mina Gairfryer
 
-
+![[Mina.pdf]]
 
 
 
