@@ -26,3 +26,13 @@ bwuhhh
 
 wehhhh
 
+![[MTD_GEA_02_Basics.pdf]]
+
+![[MTD_GEA_01_Overview.pdf]]
+
+![[MTD_GEA_02_Basics 1.pdf]]
+
+![[MTD_GEA_03_Basics_2.pdf]]
+
+![[MTD_GEA_04_Basics_3.pdf]]
+
