@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiAperture",
       "LiAirplay",
       "LiCamera",
       "LiAngry",
-      "LiAxe",
-      "🕸"
+      "LiAxe"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -94,5 +94,6 @@
   "Semester 3/Web Architectures": "🕸",
   "Semester 3/User Experience Design": "LiAngry",
   "Semester 3/Video Production": "LiCamera",
-  "Semester 3/Project Management": "LiAirplay"
+  "Semester 3/Project Management": "LiAirplay",
+  "Semester 3/Real Time Rendering Technologies": "LiAperture"
 }
