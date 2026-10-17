@@ -2,6 +2,14 @@
 
 ![[03_CRUDAndQueries.pdf]]
 
+``` sh
+docker compose exec php php import_catalogue.php
+```
+
+``` sh
+docker compose exec mongodb mongosh catalogue
+```
+
 
 ```json
 db.villagers.find({$and:[{ $or:[{species: "Cat"}, {species: "Dog"}] }, personality: {$ne:"Lazy"}]}, {name:1})
