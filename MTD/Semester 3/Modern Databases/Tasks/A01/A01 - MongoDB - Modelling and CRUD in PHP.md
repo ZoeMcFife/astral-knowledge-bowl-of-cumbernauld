@@ -20,24 +20,35 @@
 [
 	{
 		"_id": ObjectId("6ad3622d82f911e9df683b1d"),
-		"name": 'Zoe\'s Bizarre Islands',
+		"name": 'Zoe\'s Bizarre Island',
 		"owner": 'Zoe McFife',
 		"hemisphere": 'north',
 		"creation_date": ISODate('2024-10-17T10:00:00Z'),
 		"native_fruit": 'Strawberry',
-		"residents": ['Ankha', 'Audie'],
+		"residents": 
+		[
+			{
+				"villagerName": 'Ankha',
+				"villagerId": 13,
+			},
+			{
+				"villagerName": 'Audie',
+				"villagerId": 20,
+			},
+		],
 		"inventory":
 		[
 			{
 				"itemId": 4483,
+				"itemName": 'cat nose',
 				"count": 242
 			},
 			{
 				"itemId": 4672,
+				"itemName": 'curly mustache',
 				"count": 1
 			}
-		],
-		visits: ObjectId('665f1d0a8a1b2c3d4e5f6b17')
+		]
 	}
 ]
 ```
@@ -71,7 +82,7 @@
 
 ### **Residents** - Embedded 
 
-The island doesn’t need to know more about the residents than their name (which is unique). When resident information is needed, should be fetched from the villagers collection.
+The island doesn’t need to know more about the residents than their name (copied) and ID. When resident information is needed, should be fetched from the villagers collection. The 
 
 - **Read with parent?** — Yes (only name needed)
 - **How many / bounded?** — Few, bounded
@@ -79,7 +90,7 @@ The island doesn’t need to know more about the residents than their name (whic
 - **Changes** — On its own
 ### **Inventories** - Embedded
 
-Inventories belong to the island. Doesn’t grow that large. Items in the inventory referenced through itemIds.
+Inventories belong to the island. Doesn’t grow that large. Items in the inventory referenced through itemIds. Item names copied.
 
 - **Read with parent?** — Yes
 - **How many / bounded?** — A bunch but bounded
@@ -95,6 +106,1074 @@ Visits should be their own collection. They reference which island they belong t
 - **Changes** — On its own
 # 2 The Data Access Layer
 
+## 2.1 IslandDAO
+
+Implemented required DAO methods. Collection gets injected in the constructor.
+
+``` php
+<?php  
+  
+require_once __DIR__ . '/../connect.php';  
+  
+use MongoDB\BSON\ObjectId;  
+use MongoDB\Collection;  
+use MongoDB\BSON\UTCDateTime;  
+  
+class IslandDao  
+{  
+    private const MAX_RESIDENTS = 10;  
+  
+    public function __construct(private readonly Collection $islands) {}  
+  
+    public function create(string $name, string $owner, string $hemisphere, ?string $nativeFruit = null) : ObjectId  
+    {  
+        if (!in_array($hemisphere, ['north', 'south'], true))  
+        {  
+            throw new InvalidArgumentException('hemisphere must be north or south');  
+        }  
+  
+        $island =  
+            [  
+                'islandName' => $name,  
+                'owner' => $owner,  
+                'hemisphere' => $hemisphere,  
+                'creationDate' => new UTCDateTime(),  
+                'residents' => [],  
+                'inventory' => [],  
+            ];  
+  
+        if ($nativeFruit !== null)  
+        {  
+            $island['nativeFruit'] = $nativeFruit;  
+        }  
+  
+        return $this->islands->insertOne($island)->getInsertedId();  
+    }  
+  
+    public function findById(ObjectId $id): ?object  
+    {  
+        return $this->islands->findOne(['_id' => $id]);  
+    }  
+  
+    public function findByName(string $name) : ?object  
+    {  
+        return $this->islands->findOne(['islandName' => $name]);  
+    }  
+  
+    public function findByResident(string $residentName) : Array  
+    {  
+        return $this->islands->find(['residents' => $residentName])->toArray();  
+    }  
+  
+    public function moveIn(string $name, int $villagerId, string $villagerName) : bool  
+    {  
+        $result = $this->islands->updateOne  
+        (  
+            [  
+                'islandName' => $name,  
+                'residents' => ['$ne' => $villagerId],  
+                'residents.' . (self::MAX_RESIDENTS - 1) => ['$exists' => false]  
+            ],  
+            [  
+                '$push' => ['residents' => ['villagerName' => $villagerName, 'villagerId' => $villagerId]],  
+            ]  
+        );  
+  
+        return $result->getModifiedCount() === 1;  
+    }  
+  
+    public function moveOut(string $name, int $villagerId) : bool  
+    {  
+        $result = $this->islands->updateOne  
+        (  
+            [  
+                'islandName' => $name  
+            ],  
+            [  
+                '$pull' => ['residents' => ['villagerId' => $villagerId]],  
+            ]  
+        );  
+  
+        return $result->getModifiedCount() === 1;  
+    }  
+  
+    public function addToInventory(string $name, int $itemId, string $itemName, int $count) : void  
+    {  
+        if ($count === 0)  
+        {  
+            return;  
+        }  
+  
+        $updated = $this->islands->updateOne  
+        (  
+            [  
+                'islandName' => $name,  
+                'inventory.itemId' => $itemId,  
+            ],  
+            [  
+                '$inc' => ['inventory.$.count' => $count],  
+            ]  
+        );  
+  
+        if ($updated->getModifiedCount() === 0)  
+        {  
+            $this->islands->updateOne  
+            (  
+                [  
+                    'islandName' => $name  
+                ],  
+                [  
+                    '$push' => ['inventory' => ['itemId' => $itemId, 'itemName' => $itemName, 'count' => $count]],  
+                ]  
+            );  
+        }  
+    }  
+  
+    public function rename(string $old, string $new) : bool  
+    {  
+        if ($new === $old)  
+            return false;  
+  
+        $result = $this->islands->updateOne  
+        (  
+            [  
+                'islandName' => $old  
+            ],  
+            [  
+                '$rename' => ['name' => $new]  
+            ]  
+        );  
+  
+        return $result->getModifiedCount() === 1;  
+    }  
+  
+    public function delete(string $name) : bool  
+    {  
+        $result = $this->islands->deleteOne  
+        (  
+            [  
+                'islandName' => $name  
+            ]  
+        );  
+  
+        return $result->getDeletedCount() === 1;  
+    }  
+}
+```
+
+## 2.2 VisitDAO
+
+`VisitDAO` implementing `record` and `latest`.
+
+```php
+<?php  
+  
+use MongoDB\BSON\ObjectId;  
+use MongoDB\BSON\UTCDateTime;  
+use MongoDB\Collection;  
+  
+class VisitDao  
+{  
+    public function __construct(private readonly Collection $visits) {}  
+  
+    public function record(ObjectId $islandId, string $visitor, UTCDateTime $visitTime) : ObjectId  
+    {  
+        $visit =  
+            [  
+                'visitor' => $visitor,  
+                'islandId' => $islandId,  
+                'visitTime' => $visitTime,  
+            ];  
+  
+        return $this->visits->insertOne($visit)->getInsertedId();  
+    }  
+  
+    public function latest(ObjectId $islandId, int $n) : array  
+    {  
+        if ($n <= 0)  
+            return [];  
+  
+        return $this->visits->find  
+        (  
+            [  
+                'islandId' => $islandId  
+            ],  
+            [  
+                'sort' => ['visitTime' => -1],  
+                'limit' => $n  
+            ]  
+        )->toArray();  
+    }  
+}
+```
+
+## 2.3 Demo
+
+### 2.3.1 Code
+
+```php
+<?php  
+  
+use MongoDB\BSON\UTCDateTime;  
+  
+require_once __DIR__ . '/../connect.php';  
+require_once 'IslandDao.php';  
+require_once 'VisitDao.php';  
+  
+$islands = $mongo->catalogue->islands;  
+$visits = $mongo->catalogue->visits;  
+  
+$islandDAO = new IslandDao($islands);  
+$visitDAO = new VisitDao($visits);  
+  
+// Creating three islands  
+  
+$island1 = $islandDAO->create("Zoe's Bizarre Island", "Zoe McFife", "north", "Strawberry");  
+$island2 = $islandDAO->create("Blerg Islands", "Blerg", "south");  
+$island3 = $islandDAO->create("Snow", "Kirsikka Lumikettu", "north", "Pancake");  
+  
+echo "Islands: \n";  
+  
+var_dump($islandDAO->findById($island1));  
+var_dump($islandDAO->findById($island2));  
+var_dump($islandDAO->findById($island3));  
+  
+echo "\n";  
+  
+// adding villagers  
+  
+echo "Adding Villagers: \n\n";  
+  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 13, "Ankha") . "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 20, "Audie"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 1, "Admiral"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 3, "Agnes"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 17, "Apollo"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 33, "Bella"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 48, "Bob"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 89, "Cleo"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 93, "Coco"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 106, "Daisy"). "\n";  
+echo $islandDAO->moveIn("Zoe's Bizarre Island", 112, "Diana"). "\n";  
+  
+echo "expecting - false two times: \n";  
+echo ($islandDAO->moveIn("Zoe's Bizarre Island", 112, "Diana")). "\n"; // duplicate  
+echo ($islandDAO->moveIn("Zoe's Bizarre Island", 36, "Bertha")). "\n"; // sorry Bertha, we're full  
+  
+  
+// removing villagers  
+  
+echo "Removing villager: \n";  
+echo $islandDAO->moveOut("Zoe's Bizarre Island", 48). "\n";  
+  
+echo "all villagers: \n\n";  
+  
+var_dump(($islandDAO->findByName("Zoe's Bizarre Island")->residents));  
+  
+echo "\n";  
+  
+// adding items  
+  
+$islandDAO->addToInventory("Zoe's Bizarre Island", 4483, "cat nose", 24);  
+$islandDAO->addToInventory("Zoe's Bizarre Island", 4483, "cat nose", 24);  
+$islandDAO->addToInventory("Zoe's Bizarre Island", 4672, "curly moustache", 1);  
+  
+echo "Inventory: cat nose -> 48 ; moustache -> 1\n\n";  
+  
+var_dump(($islandDAO->findByName("Zoe's Bizarre Island")->inventory));  
+  
+echo "\n";  
+  
+// visits  
+  
+// let a clanker make the array  
+$visits = [  
+    ["Kirsikka Lumikettu",        '2026-08-18 09:12'],  
+    ["Blerg",                     '2026-08-21 17:45'],  
+    ["Mina Airfryer",             '2026-08-24 20:03'],  
+    ["Jade Arli",                 '2026-08-27 11:30'],  
+    ["Florence Meean'kar",        '2026-08-30 15:18'],  
+    ["Jack Storm",                '2026-09-02 08:55'],  
+    ["William Storm",             '2026-09-05 19:40'],  
+    ["Captain Nathaniel Storm",   '2026-09-08 13:22'],  
+    ["Sasha Moi",                 '2026-09-11 21:07'],  
+    ["Chris Roberts",             '2026-09-14 10:15'],  
+    ["Kirsikka Lumikettu",        '2026-09-17 16:48'],  
+    ["Jack Storm",                '2026-09-20 12:01'],  
+    ["Blerg",                     '2026-09-23 18:36'],  
+    ["Jade Arli",                 '2026-09-26 09:59'],  
+    ["Mina Airfryer",             '2026-09-29 14:27'],  
+    ["Florence Meean'kar",        '2026-10-02 20:50'],  
+    ["Sasha Moi",                 '2026-10-06 11:11'],  
+    ["Chris Roberts",             '2026-10-10 17:33'],  
+    ["Captain Nathaniel Storm",   '2026-10-14 08:42'],  
+    ["William Storm",             '2026-10-17 03:00'],  
+];  
+  
+echo "Visits: \n \n";  
+  
+foreach ($visits as [$player, $time])  
+{  
+    $at = new UTCDateTime(new DateTimeImmutable($time, new DateTimeZone('UTC')));  
+    echo $visitDAO->record($island1, $player, $at). "\n";  
+}  
+  
+echo "\n";  
+  
+echo "visit vardump: \n\n";  
+  
+var_dump($visitDAO->latest($island1, 20));
+```
+
+### 2.3.2 Output
+
+> [!note]
+> after `expecting false two times`, two empty rows got outputted. Expected behavior. 
+
+``` shell
+PS R:\GitHub\MDB3-STACK\app> docker compose exec php php a01/demo.php
+Islands: 
+object(MongoDB\Model\BSONDocument)#49 (1) {
+  ["storage":"ArrayObject":private]=>
+  array(8) {
+    ["_id"]=>
+    object(MongoDB\BSON\ObjectId)#37 (1) {
+      ["oid"]=>
+      string(24) "6ad37de25fc5710b9b0424f2"
+    }
+    ["islandName"]=>
+    string(20) "Zoe's Bizarre Island"
+    ["owner"]=>
+    string(10) "Zoe McFife"
+    ["hemisphere"]=>
+    string(5) "north"
+    ["creationDate"]=>
+    object(MongoDB\BSON\UTCDateTime)#38 (1) {
+      ["milliseconds"]=>
+      string(13) "1792245218277"
+    }
+    ["residents"]=>
+    object(MongoDB\Model\BSONArray)#47 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+    ["inventory"]=>
+    object(MongoDB\Model\BSONArray)#48 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+    ["nativeFruit"]=>
+    string(10) "Strawberry"
+  }
+}
+object(MongoDB\Model\BSONDocument)#45 (1) {
+  ["storage":"ArrayObject":private]=>
+  array(7) {
+    ["_id"]=>
+    object(MongoDB\BSON\ObjectId)#46 (1) {
+      ["oid"]=>
+      string(24) "6ad37de25fc5710b9b0424f3"
+    }
+    ["islandName"]=>
+    string(13) "Blerg Islands"
+    ["owner"]=>
+    string(5) "Blerg"
+    ["hemisphere"]=>
+    string(5) "south"
+    ["creationDate"]=>
+    object(MongoDB\BSON\UTCDateTime)#42 (1) {
+      ["milliseconds"]=>
+      string(13) "1792245218315"
+    }
+    ["residents"]=>
+    object(MongoDB\Model\BSONArray)#41 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+    ["inventory"]=>
+    object(MongoDB\Model\BSONArray)#44 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+  }
+}
+object(MongoDB\Model\BSONDocument)#36 (1) {
+  ["storage":"ArrayObject":private]=>
+  array(8) {
+    ["_id"]=>
+    object(MongoDB\BSON\ObjectId)#48 (1) {
+      ["oid"]=>
+      string(24) "6ad37de25fc5710b9b0424f4"
+    }
+    ["islandName"]=>
+    string(4) "Snow"
+    ["owner"]=>
+    string(18) "Kirsikka Lumikettu"
+    ["hemisphere"]=>
+    string(5) "north"
+    ["creationDate"]=>
+    object(MongoDB\BSON\UTCDateTime)#37 (1) {
+      ["milliseconds"]=>
+      string(13) "1792245218317"
+    }
+    ["residents"]=>
+    object(MongoDB\Model\BSONArray)#38 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+    ["inventory"]=>
+    object(MongoDB\Model\BSONArray)#47 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(0) {
+      }
+    }
+    ["nativeFruit"]=>
+    string(7) "Pancake"
+  }
+}
+
+Adding Villagers: 
+
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+expecting - false two times: 
+
+
+Removing villager: 
+1
+all villagers: 
+
+object(MongoDB\Model\BSONArray)#56 (1) {
+  ["storage":"ArrayObject":private]=>
+  array(9) {
+    [0]=>
+    object(MongoDB\Model\BSONDocument)#42 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(5) "Ankha"
+        ["villagerId"]=>
+        int(13)
+      }
+    }
+    [1]=>
+    object(MongoDB\Model\BSONDocument)#41 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(5) "Audie"
+        ["villagerId"]=>
+        int(20)
+      }
+    }
+    [2]=>
+    object(MongoDB\Model\BSONDocument)#49 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(7) "Admiral"
+        ["villagerId"]=>
+        int(1)
+      }
+    }
+    [3]=>
+    object(MongoDB\Model\BSONDocument)#50 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(5) "Agnes"
+        ["villagerId"]=>
+        int(3)
+      }
+    }
+    [4]=>
+    object(MongoDB\Model\BSONDocument)#51 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(6) "Apollo"
+        ["villagerId"]=>
+        int(17)
+      }
+    }
+    [5]=>
+    object(MongoDB\Model\BSONDocument)#52 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(5) "Bella"
+        ["villagerId"]=>
+        int(33)
+      }
+    }
+    [6]=>
+    object(MongoDB\Model\BSONDocument)#53 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(4) "Cleo"
+        ["villagerId"]=>
+        int(89)
+      }
+    }
+    [7]=>
+    object(MongoDB\Model\BSONDocument)#54 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(4) "Coco"
+        ["villagerId"]=>
+        int(93)
+      }
+    }
+    [8]=>
+    object(MongoDB\Model\BSONDocument)#55 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(2) {
+        ["villagerName"]=>
+        string(5) "Daisy"
+        ["villagerId"]=>
+        int(106)
+      }
+    }
+  }
+}
+
+Inventory: cat nose -> 48 ; moustache -> 1
+
+object(MongoDB\Model\BSONArray)#59 (1) {
+  ["storage":"ArrayObject":private]=>
+  array(2) {
+    [0]=>
+    object(MongoDB\Model\BSONDocument)#47 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(3) {
+        ["itemId"]=>
+        int(4483)
+        ["itemName"]=>
+        string(8) "cat nose"
+        ["count"]=>
+        int(48)
+      }
+    }
+    [1]=>
+    object(MongoDB\Model\BSONDocument)#48 (1) {
+      ["storage":"ArrayObject":private]=>
+      array(3) {
+        ["itemId"]=>
+        int(4672)
+        ["itemName"]=>
+        string(15) "curly moustache"
+        ["count"]=>
+        int(1)
+      }
+    }
+  }
+}
+
+Visits: 
+ 
+6ad37de25fc5710b9b0424f5
+6ad37de25fc5710b9b0424f6
+6ad37de25fc5710b9b0424f7
+6ad37de25fc5710b9b0424f8
+6ad37de25fc5710b9b0424f9
+6ad37de25fc5710b9b0424fa
+6ad37de25fc5710b9b0424fb
+6ad37de25fc5710b9b0424fc
+6ad37de25fc5710b9b0424fd
+6ad37de25fc5710b9b0424fe
+6ad37de25fc5710b9b0424ff
+6ad37de25fc5710b9b042500
+6ad37de25fc5710b9b042501
+6ad37de25fc5710b9b042502
+6ad37de25fc5710b9b042503
+6ad37de25fc5710b9b042504
+6ad37de25fc5710b9b042505
+6ad37de25fc5710b9b042506
+6ad37de25fc5710b9b042507
+6ad37de25fc5710b9b042508
+
+visit vardump: 
+
+array(20) {
+  [0]=>
+  object(MongoDB\Model\BSONDocument)#38 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#47 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042508"
+      }
+      ["visitor"]=>
+      string(13) "William Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#46 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#36 (1) {
+        ["milliseconds"]=>
+        string(13) "1792206000000"
+      }
+    }
+  }
+  [1]=>
+  object(MongoDB\Model\BSONDocument)#55 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#44 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042507"
+      }
+      ["visitor"]=>
+      string(23) "Captain Nathaniel Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#45 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#57 (1) {
+        ["milliseconds"]=>
+        string(13) "1791967320000"
+      }
+    }
+  }
+  [2]=>
+  object(MongoDB\Model\BSONDocument)#53 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#54 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042506"
+      }
+      ["visitor"]=>
+      string(13) "Chris Roberts"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#58 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#42 (1) {
+        ["milliseconds"]=>
+        string(13) "1791653580000"
+      }
+    }
+  }
+  [3]=>
+  object(MongoDB\Model\BSONDocument)#50 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#51 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042505"
+      }
+      ["visitor"]=>
+      string(9) "Sasha Moi"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#49 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#41 (1) {
+        ["milliseconds"]=>
+        string(13) "1791285060000"
+      }
+    }
+  }
+  [4]=>
+  object(MongoDB\Model\BSONDocument)#62 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#52 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042504"
+      }
+      ["visitor"]=>
+      string(18) "Florence Meean'kar"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#56 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#61 (1) {
+        ["milliseconds"]=>
+        string(13) "1790974200000"
+      }
+    }
+  }
+  [5]=>
+  object(MongoDB\Model\BSONDocument)#66 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#63 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042503"
+      }
+      ["visitor"]=>
+      string(13) "Mina Airfryer"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#64 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#65 (1) {
+        ["milliseconds"]=>
+        string(13) "1790692020000"
+      }
+    }
+  }
+  [6]=>
+  object(MongoDB\Model\BSONDocument)#70 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#67 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042502"
+      }
+      ["visitor"]=>
+      string(9) "Jade Arli"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#68 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#69 (1) {
+        ["milliseconds"]=>
+        string(13) "1790416740000"
+      }
+    }
+  }
+  [7]=>
+  object(MongoDB\Model\BSONDocument)#74 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#71 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042501"
+      }
+      ["visitor"]=>
+      string(5) "Blerg"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#72 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#73 (1) {
+        ["milliseconds"]=>
+        string(13) "1790188560000"
+      }
+    }
+  }
+  [8]=>
+  object(MongoDB\Model\BSONDocument)#78 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#75 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b042500"
+      }
+      ["visitor"]=>
+      string(10) "Jack Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#76 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#77 (1) {
+        ["milliseconds"]=>
+        string(13) "1789905660000"
+      }
+    }
+  }
+  [9]=>
+  object(MongoDB\Model\BSONDocument)#82 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#79 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424ff"
+      }
+      ["visitor"]=>
+      string(18) "Kirsikka Lumikettu"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#80 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#81 (1) {
+        ["milliseconds"]=>
+        string(13) "1789663680000"
+      }
+    }
+  }
+  [10]=>
+  object(MongoDB\Model\BSONDocument)#86 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#83 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424fe"
+      }
+      ["visitor"]=>
+      string(13) "Chris Roberts"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#84 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#85 (1) {
+        ["milliseconds"]=>
+        string(13) "1789380900000"
+      }
+    }
+  }
+  [11]=>
+  object(MongoDB\Model\BSONDocument)#90 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#87 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424fd"
+      }
+      ["visitor"]=>
+      string(9) "Sasha Moi"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#88 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#89 (1) {
+        ["milliseconds"]=>
+        string(13) "1789160820000"
+      }
+    }
+  }
+  [12]=>
+  object(MongoDB\Model\BSONDocument)#94 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#91 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424fc"
+      }
+      ["visitor"]=>
+      string(23) "Captain Nathaniel Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#92 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#93 (1) {
+        ["milliseconds"]=>
+        string(13) "1788873720000"
+      }
+    }
+  }
+  [13]=>
+  object(MongoDB\Model\BSONDocument)#98 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#95 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424fb"
+      }
+      ["visitor"]=>
+      string(13) "William Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#96 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#97 (1) {
+        ["milliseconds"]=>
+        string(13) "1788637200000"
+      }
+    }
+  }
+  [14]=>
+  object(MongoDB\Model\BSONDocument)#102 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#99 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424fa"
+      }
+      ["visitor"]=>
+      string(10) "Jack Storm"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#100 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#101 (1) {
+        ["milliseconds"]=>
+        string(13) "1788339300000"
+      }
+    }
+  }
+  [15]=>
+  object(MongoDB\Model\BSONDocument)#106 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#103 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f9"
+      }
+      ["visitor"]=>
+      string(18) "Florence Meean'kar"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#104 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#105 (1) {
+        ["milliseconds"]=>
+        string(13) "1788103080000"
+      }
+    }
+  }
+  [16]=>
+  object(MongoDB\Model\BSONDocument)#110 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#107 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f8"
+      }
+      ["visitor"]=>
+      string(9) "Jade Arli"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#108 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#109 (1) {
+        ["milliseconds"]=>
+        string(13) "1787830200000"
+      }
+    }
+  }
+  [17]=>
+  object(MongoDB\Model\BSONDocument)#114 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#111 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f7"
+      }
+      ["visitor"]=>
+      string(13) "Mina Airfryer"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#112 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#113 (1) {
+        ["milliseconds"]=>
+        string(13) "1787601780000"
+      }
+    }
+  }
+  [18]=>
+  object(MongoDB\Model\BSONDocument)#118 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#115 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f6"
+      }
+      ["visitor"]=>
+      string(5) "Blerg"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#116 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#117 (1) {
+        ["milliseconds"]=>
+        string(13) "1787334300000"
+      }
+    }
+  }
+  [19]=>
+  object(MongoDB\Model\BSONDocument)#122 (1) {
+    ["storage":"ArrayObject":private]=>
+    array(4) {
+      ["_id"]=>
+      object(MongoDB\BSON\ObjectId)#119 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f5"
+      }
+      ["visitor"]=>
+      string(18) "Kirsikka Lumikettu"
+      ["islandId"]=>
+      object(MongoDB\BSON\ObjectId)#120 (1) {
+        ["oid"]=>
+        string(24) "6ad37de25fc5710b9b0424f2"
+      }
+      ["visitTime"]=>
+      object(MongoDB\BSON\UTCDateTime)#121 (1) {
+        ["milliseconds"]=>
+        string(13) "1787044320000"
+      }
+    }
+  }
+}
+PS R:\GitHub\MDB3-STACK\app> 
+```
 
 # 3 Queries
 
