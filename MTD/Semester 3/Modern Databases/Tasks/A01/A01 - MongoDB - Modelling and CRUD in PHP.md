@@ -1177,5 +1177,296 @@ PS R:\GitHub\MDB3-STACK\app>
 
 # 3 Queries
 
+## 3.1 Query 1
 
+### MongoDB Query
+
+```php
+// Query 1 - All islands where villager 1 (Admiral) lives, names only  
+  
+echo "Query 1: \n";  
+  
+$islandsWithAdmiral =  
+    $islands->find  
+    (  
+        [  
+            'residents.villagerName' => 'Admiral'  
+        ],  
+        [  
+            'projection' => ['islandName' => 1]  
+        ]  
+    );  
+  
+foreach ($islandsWithAdmiral as $island)  
+{  
+    echo $island->islandName . "\n";  
+}  
+  
+echo "\n";
+```
+### Result
+
+```shell
+Query 1: 
+Misty Cay
+Cozy Shores
+Lazy Key
+Misty Haven
+Tiny Shores
+Lazy Haven
+```
+
+### SQL Equivalent
+
+```sql
+
+```
+## 3.2 Query 2
+
+### MongoDB Query
+
+```php
+// Query 2 - All islands whose inventory has at least three clay furnaces (item 717)  
+  
+echo "Query 2: \n";  
+  
+$islandsWithThreeClayFurnaces =  
+    $islands->find(  
+        [  
+            'inventory' => [  
+                '$elemMatch' => [  
+                    'itemId' => 717,  
+                    'count'  => ['$gte' => 3],  
+                ],  
+            ],  
+        ],  
+        [  
+            'projection' => ['islandName' => 1, 'inventory' => 1],  
+        ]  
+    );  
+  
+foreach ($islandsWithThreeClayFurnaces as $island)  
+{  
+    echo $island->islandName . "\n";  
+    foreach ($island->inventory as $inventory)  
+    {  
+        if ($inventory->itemId == 717)  
+        {  
+            echo $inventory->itemName . "\n";  
+            echo $inventory->count . "\n";  
+        }  
+  
+  
+    }  
+    echo "\n";  
+}  
+  
+echo "\n";
+```
+### Result
+
+```shell
+Query 2: 
+Wild Shores
+clay furnace
+12
+
+Wild Atoll
+clay furnace
+20
+
+Lost Cay
+clay furnace
+4
+
+Lazy Key
+clay furnace
+7
+
+Cozy Atoll
+clay furnace
+3
+```
+### SQL Equivalent
+
+```sql
+
+```
+## 3.3 Query 3
+
+### MongoDB Query
+
+```php
+// Query 3 - the five newest visits to one island in October 2026, newest first  
+  
+echo "Query 3: \n";  
+  
+$islandEx3 = $islands->findOne  
+(  
+    [  
+        'islandName' => "Snowy Shores"  
+    ]  
+);  
+  
+$utc = new DateTimeZone('UTC');  
+  
+$fiveNewest =  
+    $visits->find  
+    (  
+        [  
+            'islandId' => $islandEx3->_id,  
+            'visitTime' => [  
+                '$gte' => new UTCDateTime(new DateTimeImmutable('2026-10-01 00:00:00', $utc)),  
+                '$lt'  => new UTCDateTime(new DateTimeImmutable('2026-11-01 00:00:00', $utc)),  
+            ]  
+        ],  
+        [  
+            'sort' => ['visitTime' => -1],  
+            'limit' => 5  
+        ]  
+    );  
+  
+foreach ($fiveNewest as $visit)  
+{  
+    echo $visit->visitor . "\n";  
+    echo $visit->visitTime . "\n";  
+    echo "\n";  
+}  
+  
+echo "\n";
+```
+### Result
+
+``` shell
+Query 3: 
+Kirsikka Lumikettu
+1792142240000
+
+Chris Roberts
+1792139665000
+
+Mina Airfryer
+1791744760000
+
+Jade Arli
+1791728714000
+
+Kirsikka Lumikettu
+1791639243000
+```
+### SQL Equivalent
+
+```shell
+
+```
+## 3.4 Query 4
+
+### MongoDB Query
+
+```php
+// Query 4 - All islands that are in the southern hemisphere or have no native fruit recorded  
+  
+echo "Query 4: \n";  
+  
+$islandSouthOrNoFruit =  
+    $islands->find  
+    (  
+        [  
+            '$or' =>  
+                [['hemisphere' => 'south'],  
+                ['nativeFruit' => ['$exists' => false]]]  
+        ]  
+    );  
+  
+foreach ($islandSouthOrNoFruit as $island)  
+{  
+    echo $island->islandName . "\n";  
+    echo $island->hemisphere . "\n";  
+    echo $island->nativeFruit . "\n";  
+    echo "\n";  
+}
+```
+### Result
+
+``` php
+Query 4: 
+Lazy Atoll
+south
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Golden Reef
+south
+Pancake
+
+Tiny Island
+north
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Misty Reef
+south
+Orange
+
+Sunny Atoll
+south
+Strawberry
+
+Tiny Atoll
+north
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Lost Cay
+south
+Cherry
+
+Cozy Key
+south
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Snowy Shores
+south
+Pear
+
+Lazy Haven
+north
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Misty Atoll
+south
+Pear
+
+Cozy Atoll
+south
+Pancake
+
+Sunny Reef
+north
+PHP Warning:  Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+Warning: Undefined array key "nativeFruit" in /var/www/html/a01/queries.php on line 130
+
+
+Lost Isles
+south
+Pancake
+```
+### SQL Equivalent
+
+```sql
+
+```
 # 4 Reports
