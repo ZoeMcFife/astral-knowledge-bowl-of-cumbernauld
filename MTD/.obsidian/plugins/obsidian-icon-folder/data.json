@@ -6,11 +6,11 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiEgg",
       "LiAperture",
       "LiAirplay",
       "LiCamera",
-      "LiAngry",
-      "LiAxe"
+      "LiAngry"
     ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
@@ -95,5 +95,6 @@
   "Semester 3/User Experience Design": "LiAngry",
   "Semester 3/Video Production": "LiCamera",
   "Semester 3/Project Management": "LiAirplay",
-  "Semester 3/Real Time Rendering Technologies": "LiAperture"
+  "Semester 3/Real Time Rendering Technologies": "LiAperture",
+  "Semester 3/Egging Session": "LiEgg"
 }
