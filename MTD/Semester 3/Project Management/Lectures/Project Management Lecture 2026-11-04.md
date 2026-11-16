@@ -13,3 +13,4 @@ Assuming 5 people, 2000€ salary, 3 parallel projects
 
 6666.67€ + 3000€ → 10000€ siiiix seeeveeeen
 
+![[261004_PRO3SE_Producing.pdf]]
