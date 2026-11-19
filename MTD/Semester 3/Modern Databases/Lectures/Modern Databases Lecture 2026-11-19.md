@@ -112,3 +112,141 @@ db.items.aggregate
 	}
 ])
 ```
+
+## outs 
+
+```js
+db.items.aggregate
+([
+	{
+		$out: 
+		{
+			db: 'sandbox',
+			coll: 'items'
+		}
+	}
+])
+```
+
+```js
+db.villagers.aggregate
+([
+	{
+		$unwind: '$furniture'
+	},
+	{
+		$group: 
+		{
+			_id: '$furniture',
+			owners: { $sum: 1}
+		}
+	},
+	{
+		$merge:
+		{
+			into: 'itemPopularity',
+			whenMatched: 'replace',
+			whenNotMatched: 'insert'
+		}
+	}
+])
+```
+
+this one should just be an update 
+
+```js
+db.villagers.aggregate
+([
+	{
+		$project: 
+		{
+			furnitureCount: 
+			{
+				$size: '$furniture'
+			}
+		}
+	},
+	{
+		$merge:
+		{
+			into: 'villagers',
+			on: '_id',
+			whenMatched: 'merge',
+			whenNotMatched: 'discard'
+		}
+	}
+])
+```
+
+```js
+db.villagers.aggregate
+([
+	{
+		$unwind: '$furniture'
+	},
+	{
+		$group: 
+		{
+			_id: '$furniture',
+			owners: { $sum: 1}
+		}
+	},
+	{
+		$merge:
+		{
+			into: 'items',
+			on: '_id',
+			whenMatched: 'merge',
+			whenNotMatched: 'discard'
+		}
+	}
+])
+
+db.items.find
+(
+	{
+		owners: { $gte: 1 }
+	}
+)
+
+```
+
+```js
+db.items.updateMany
+(
+	{
+		buy: 
+		{
+			$exists: true
+		}
+	},
+	[
+		{
+			$set: 
+			{ 
+				profit: 
+				{ 
+					$subtract: ['$sell', '$buy']
+				} 
+			}
+		}
+	]
+)
+```
+
+```js
+db.items.find
+(
+	{
+		profit: { $gt: 0 }
+	},
+	{
+		name: 1,
+		profit: 1
+	}
+)
+
+```
+
+
+![[06_IndexesAndValidation.pdf]]
