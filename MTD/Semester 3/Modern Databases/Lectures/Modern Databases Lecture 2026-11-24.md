@@ -1,6 +1,3 @@
----
-alias:
----
 #modern_databases 
 
 ![[06_IndexesAndValidation.pdf]]
@@ -290,4 +287,79 @@ db.villagers.updateMany
 		}
 	]
 )
+```
+# Transactions and Consistency 
+
+![[07_TransactionsAndConsistency.pdf]]
+# New Sql
+
+![[08_NewSQLI.pdf]]
+
+```sh
+sudo docker compose exec cockroach1 cockroach sql --insecure
+```
+
+```sql
+CREATE DATABASE catalogue;
+```
+
+```sql
+CREATE TABLE items
+(
+	id INT PRIMARY KEY,
+	name STRING NOT NULL,
+	type STRING NOT NULL,
+	buy DECIMAL(10,1),
+	sell DECIMAL(10,1),
+	source STRING
+);
+
+CREATE TABLE villagers (
+    id INT PRIMARY KEY, name STRING NOT NULL UNIQUE, species STRING NOT NULL,
+    personality STRING NOT NULL,
+    birthday_month INT NOT NULL CHECK (birthday_month BETWEEN 1 AND 12),
+    birthday_day INT NOT NULL);
+
+CREATE TABLE villager_furniture (
+    villager_id INT NOT NULL REFERENCES villagers(id), position INT NOT NULL,
+    item_id INT NOT NULL REFERENCES items(id),
+    PRIMARY KEY (villager_id, position));
+```
+
+```sql
+IMPORT INTO items CSV DATA 
+(
+	'nodelocal://1/s4/items.csv'
+)
+WITH skip = '1', nullif = '';
+```
+
+```sql
+IMPORT INTO villagers CSV DATA 
+('nodelocal://1/s4/villagers.csv') 
+WITH skip = '1';
+```
+
+```sql
+IMPORT INTO villager_furniture CSV DATA ('nodelocal://1/s4/villager_furniture.csv') 
+WITH skip = '1';
+```
+
+```sql
+
+-- the jobs, and what IMPORT did not check
+SELECT split_part(description, ' ', 3) AS target, status FROM [SHOW JOBS] WHERE job_type = 'IMPORT' ORDER BY created DESC LIMIT 3;
+SELECT constraint_name, validated FROM [SHOW CONSTRAINTS FROM villager_furniture];
+```
+
+```sql
+ALTER TABLE villager_furniture VALIDATE CONSTRAINT villager_furniture_villager_id_fkey;
+ALTER TABLE villager_furniture VALIDATE CONSTRAINT villager_furniture_item_id_fkey;
+ALTER TABLE villagers VALIDATE CONSTRAINT check_birthday_month;
+```
+
+```sql
+ANALYZE items;
+ANALYZE villagers;
+ANALYZE villager_furniture;
 ```
